@@ -1,46 +1,72 @@
-import { Button, Group, Modal, TextInput } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  Chip,
+  Collapse,
+  Group,
+  Modal,
+  Stack,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
+import { IconTags } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
+import { Tags, TagColors } from '../../utils/todos';
+import { EnumTag } from '../../types/todos';
 
 type Props = {
   opened: boolean;
-  close: () => void;
+  closeModal: () => void;
 };
 
-const AddModal: React.FC<Props> = ({ opened, close }) => {
+type FormValues = {
+  name: string;
+  tags: EnumTag[];
+};
+
+const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
   const { dispatch } = useTodosContext();
-  const form = useForm({
+  const [tagsOpened, { toggle: toggleTags, close: closeTags }] =
+    useDisclosure(false);
+  const form = useForm<FormValues>({
     initialValues: {
-      text: '',
+      name: '',
+      tags: [],
     },
     validate: {
-      text: (value: string) => (value ? null : 'Text is required'),
+      name: (value: string) => (value ? null : 'Todo name is required'),
     },
     validateInputOnChange: true,
   });
 
-  const handleSubmit = async ({ text }: { text: string }) => {
+  const handleSubmit = async ({ name, tags }: FormValues) => {
     dispatch({
       type: 'add',
       payload: {
-        text,
+        name,
+        tags,
       },
     });
 
-    close();
+    closeModal();
+
+    closeTags();
 
     form.reset();
 
     showNotification({
-      message: 'Todo added.',
       title: 'Success',
+      message: 'Todo added.',
       color: 'green',
     });
   };
 
   const handleClose = () => {
-    close();
+    closeModal();
+
+    closeTags();
 
     form.reset();
   };
@@ -52,11 +78,27 @@ const AddModal: React.FC<Props> = ({ opened, close }) => {
       title="What do you need to do?"
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
-          placeholder="Watch Mad Men"
-          data-autofocus
-          {...form.getInputProps('text')}
-        />
+        <Stack spacing="sm">
+          <TextInput
+            placeholder="Watch Mad Men"
+            data-autofocus
+            {...form.getInputProps('name')}
+          />
+          <ActionIcon onClick={toggleTags}>
+            <IconTags />
+          </ActionIcon>
+          <Collapse in={tagsOpened} transitionDuration={250}>
+            <Group spacing="xs">
+              <Chip.Group multiple {...form.getInputProps('tags')}>
+                {Tags.map(({ label }) => (
+                  <Chip value={label} variant="filled" color={TagColors[label]}>
+                    {label}
+                  </Chip>
+                ))}
+              </Chip.Group>
+            </Group>
+          </Collapse>
+        </Stack>
         <Group mt="md" position="right" spacing="md">
           <Button type="submit">Add</Button>
           <Button color="gray" onClick={handleClose}>

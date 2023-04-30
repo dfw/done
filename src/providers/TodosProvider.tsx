@@ -1,11 +1,15 @@
 import { createContext, useContext, useReducer } from 'react';
-import { TodosContextType, TodosProviderProps } from './types';
-import { todosReducer, initialTodosReducerState } from './util';
+import { TypeContext } from '../types/providers';
+import { reducer, initialState } from '../utils/providers';
 
-const TodosContext = createContext<TodosContextType>(null);
+type Props = {
+  children: React.ReactNode;
+};
 
-const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(todosReducer, initialTodosReducerState);
+const TodosContext = createContext<TypeContext>(null);
+
+const TodosProvider: React.FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <TodosContext.Provider value={{ state, dispatch }}>

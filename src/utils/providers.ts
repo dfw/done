@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TodosState, TodosAction } from './types';
+import { TypeState, TypeAction } from '../types/providers';
 
-export const todosReducer = (state: TodosState, action: TodosAction) => {
+export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
     case 'add':
-      const { text } = action.payload;
+      const { name, tags } = action.payload;
 
       return {
         ...state,
@@ -12,8 +12,9 @@ export const todosReducer = (state: TodosState, action: TodosAction) => {
           ...state.todos,
           {
             id: uuidv4(),
-            text,
+            name,
             done: false,
+            tags,
           },
         ],
       };
@@ -41,6 +42,6 @@ export const todosReducer = (state: TodosState, action: TodosAction) => {
   }
 };
 
-export const initialTodosReducerState: TodosState = {
+export const initialState: TypeState = {
   todos: [],
 };

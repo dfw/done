@@ -11,7 +11,13 @@ const App: React.FC = () => {
     useDisclosure(false);
 
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        colorScheme: 'dark',
+      }}
+    >
       <TodoProvider>
         <Container size="600px">
           <Header openAddModal={openAddModal} />
@@ -19,7 +25,7 @@ const App: React.FC = () => {
             <Text>Settings go here!!</Text>
           </Collapse>
           <TodosList />
-          <AddModal opened={addModalOpened} close={closeAddModal} />
+          <AddModal opened={addModalOpened} closeModal={closeAddModal} />
         </Container>
       </TodoProvider>
       <Notifications />

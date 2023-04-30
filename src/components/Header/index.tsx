@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { ActionIcon, Group } from '@mantine/core';
-import { IconAdjustments, IconPlus } from '@tabler/icons-react';
+import { ActionIcon, Group, Title } from '@mantine/core';
+import { IconMoonStars, IconPlus, IconSun } from '@tabler/icons-react';
 
 const H1 = styled.h1`
   margin: 0;
@@ -12,13 +12,21 @@ type Props = {
 
 const Header: React.FC<Props> = ({ openAddModal }) => {
   return (
-    <Group position="apart">
-      <H1>Done</H1>
-      <ActionIcon onClick={openAddModal} color="blue" variant="filled">
+    <Group position="center" my={15}>
+      <Title order={1}>Done</Title>
+      <ActionIcon
+        onClick={openAddModal}
+        color="blue"
+        variant="filled"
+        sx={{ margin: '0 auto' }}
+      >
         <IconPlus />
       </ActionIcon>
-      <ActionIcon color="blue" variant="outline">
-        <IconAdjustments />
+      {/* <ActionIcon color="blue">
+        <IconMoonStars />
+      </ActionIcon> */}
+      <ActionIcon color="blue">
+        <IconSun />
       </ActionIcon>
     </Group>
   );
