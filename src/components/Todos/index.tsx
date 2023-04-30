@@ -9,24 +9,38 @@ import {
 import { showNotification } from '@mantine/notifications';
 import { compareAsc, compareDesc, parseISO } from 'date-fns';
 import { useTodosContext } from '../../providers/TodosProvider';
-import { TagColors, isAscending, isDefaultSort } from '../../utils/todos';
-import { EnumSortDirection, EnumSortType } from '../../types/todos';
+import {
+  TagColors,
+  isAscending,
+  isDefaultSort,
+  isDefaultFilter,
+} from '../../utils/todos';
+import { EnumShow, EnumSortType } from '../../types/todos';
 
 const Checkbox = styled(MantineCheckbox)`
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
   user-select: none;
 `;
 
-const TodosList: React.FC = () => {
+const Todos: React.FC = () => {
   const {
     state: {
       todos: defaultTodos,
       sort: { type: sortType, direction: sortDirection },
+      filters: { show: showFilter },
     },
     dispatch,
   } = useTodosContext();
 
   let todos = [...defaultTodos];
+
+  if (!isDefaultFilter(showFilter)) {
+    const done = showFilter === EnumShow.Done;
+
+    todos = todos.filter((todo) => {
+      return todo.done === done;
+    });
+  }
 
   if (!isDefaultSort(sortType, sortDirection)) {
     switch (sortType) {
@@ -104,4 +118,4 @@ const TodosList: React.FC = () => {
   );
 };
 
-export default TodosList;
+export default Todos;

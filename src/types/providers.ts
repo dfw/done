@@ -1,10 +1,20 @@
-import { TypeTodo, EnumTag, EnumSortType, EnumSortDirection } from './todos';
+import {
+  TypeTodo,
+  EnumTag,
+  EnumSortType,
+  EnumSortDirection,
+  EnumShow,
+} from './todos';
 
 export type TypeState = {
   todos: TypeTodo[];
   sort: {
     type: EnumSortType;
     direction: EnumSortDirection;
+  };
+  filters: {
+    show: EnumShow;
+    tags: EnumTag[];
   };
 };
 
@@ -33,6 +43,12 @@ export type TypeAction =
       type: 'sortDirection';
       payload: {
         direction: EnumSortDirection;
+      };
+    }
+  | {
+      type: 'filterShow';
+      payload: {
+        show: EnumShow;
       };
     };
 

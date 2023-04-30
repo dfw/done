@@ -17,6 +17,12 @@ export enum EnumSortDirection {
   Desc = 'desc',
 }
 
+export enum EnumShow {
+  All = 'All',
+  NotDone = 'Not done',
+  Done = 'Done',
+}
+
 export type TypeTodo = {
   id: string;
   name: string;

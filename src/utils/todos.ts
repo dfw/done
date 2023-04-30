@@ -1,4 +1,9 @@
-import { EnumSortDirection, EnumSortType, EnumTag } from '../types/todos';
+import {
+  EnumShow,
+  EnumSortDirection,
+  EnumSortType,
+  EnumTag,
+} from '../types/todos';
 
 export const Tags = Object.freeze([
   {
@@ -39,3 +44,5 @@ export const isDefaultSort = (
 
 export const isAscending = (sortDirection: EnumSortDirection) =>
   sortDirection === EnumSortDirection.Asc;
+
+export const isDefaultFilter = (show: EnumShow) => show === EnumShow.All;

@@ -7,7 +7,7 @@ import {
   IconSortDescending,
 } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
-import { EnumSortDirection, EnumSortType } from '../../types/todos';
+import { EnumShow, EnumSortDirection, EnumSortType } from '../../types/todos';
 
 type Props = {
   opened: boolean;
@@ -15,7 +15,10 @@ type Props = {
 
 const Filters: React.FC<Props> = ({ opened }) => {
   const {
-    state: { sort },
+    state: {
+      sort,
+      filters: { show: showFilter },
+    },
     dispatch,
   } = useTodosContext();
 
@@ -37,11 +40,20 @@ const Filters: React.FC<Props> = ({ opened }) => {
     });
   };
 
+  const handleFilterShow = (show: EnumShow) => {
+    dispatch({
+      type: 'filterShow',
+      payload: {
+        show,
+      },
+    });
+  };
+
   return opened ? (
-    <Tabs defaultValue="filter">
+    <Tabs defaultValue="filters">
       <Tabs.List grow>
-        <Tabs.Tab value="filter" icon={<IconFilter size="0.8rem" />}>
-          Filter
+        <Tabs.Tab value="filters" icon={<IconFilter size="0.8rem" />}>
+          Filters
         </Tabs.Tab>
         <Tabs.Tab value="sort" icon={<IconArrowsSort size="0.8rem" />}>
           Sort
@@ -50,8 +62,21 @@ const Filters: React.FC<Props> = ({ opened }) => {
           Search
         </Tabs.Tab>
       </Tabs.List>
-      <Tabs.Panel value="filter" pt={15}>
-        This is the filter.
+      <Tabs.Panel value="filters" pt={15}>
+        <Group>
+          <Text fw={700}>Filters:</Text>
+          <Button.Group>
+            {Object.values(EnumShow).map((show) => (
+              <Button
+                variant={showFilter === show ? 'filled' : 'light'}
+                onClick={() => handleFilterShow(show)}
+                key={show}
+              >
+                {show}
+              </Button>
+            ))}
+          </Button.Group>
+        </Group>
       </Tabs.Panel>
       <Tabs.Panel value="sort" pt={15}>
         <Group>

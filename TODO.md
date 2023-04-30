@@ -25,7 +25,6 @@
 - Search
   - Search todo text
 - Filter
-  - Hide completed todos
   - By tags
 - Sort
   - Due Date

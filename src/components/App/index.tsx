@@ -4,7 +4,7 @@ import { Notifications } from '@mantine/notifications';
 import TodoProvider from '../../providers/TodosProvider';
 import Header from '../Header';
 import AddModal from '../AddModal';
-import TodosList from '../TodosList';
+import Todos from '../Todos';
 import Filters from '../Filters';
 
 const App: React.FC = () => {
@@ -28,7 +28,7 @@ const App: React.FC = () => {
             toggleFilters={toggleFilters}
           />
           <Filters opened={filtersOpened} />
-          <TodosList />
+          <Todos />
           <AddModal opened={addModalOpened} closeModal={closeAddModal} />
         </Container>
       </TodoProvider>

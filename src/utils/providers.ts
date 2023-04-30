@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TypeState, TypeAction } from '../types/providers';
-import { EnumSortDirection, EnumSortType } from '../types/todos';
+import { EnumShow, EnumSortDirection, EnumSortType } from '../types/todos';
 
 export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
@@ -62,6 +62,17 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         },
       };
 
+    case 'filterShow':
+      const { show } = action.payload;
+
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          show,
+        },
+      };
+
     default:
       return { ...state };
   }
@@ -72,5 +83,9 @@ export const initialState: TypeState = {
   sort: {
     type: EnumSortType.DateAdded,
     direction: EnumSortDirection.Asc,
+  },
+  filters: {
+    show: EnumShow.All,
+    tags: [],
   },
 };
