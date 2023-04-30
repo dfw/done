@@ -1,4 +1,4 @@
-import { EnumTag } from '../types/todos';
+import { EnumSortDirection, EnumSortType, EnumTag } from '../types/todos';
 
 export const Tags = Object.freeze([
   {
@@ -29,3 +29,13 @@ export const TagColors = Object.freeze({
   [EnumTag.Home]: 'green',
   [EnumTag.Important]: 'red',
 });
+
+export const isDefaultSort = (
+  sortType: EnumSortType,
+  sortDirection: EnumSortDirection
+) =>
+  sortType === EnumSortType.DateAdded &&
+  sortDirection === EnumSortDirection.Asc;
+
+export const isAscending = (sortDirection: EnumSortDirection) =>
+  sortDirection === EnumSortDirection.Asc;

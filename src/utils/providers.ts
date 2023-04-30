@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TypeState, TypeAction } from '../types/providers';
+import { EnumSortDirection, EnumSortType } from '../types/todos';
 
 export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
@@ -15,6 +16,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
             name,
             done: false,
             tags,
+            dateAdded: new Date().toISOString(),
           },
         ],
       };
@@ -26,6 +28,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           return {
             ...todo,
             done,
+            dateUpdated: new Date().toISOString(),
           };
         }
 
@@ -37,6 +40,28 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         todos: nextTodos,
       };
 
+    case 'sortType':
+      const { type } = action.payload;
+
+      return {
+        ...state,
+        sort: {
+          ...state.sort,
+          type,
+        },
+      };
+
+    case 'sortDirection':
+      const { direction } = action.payload;
+
+      return {
+        ...state,
+        sort: {
+          ...state.sort,
+          direction,
+        },
+      };
+
     default:
       return { ...state };
   }
@@ -44,4 +69,8 @@ export const reducer = (state: TypeState, action: TypeAction) => {
 
 export const initialState: TypeState = {
   todos: [],
+  sort: {
+    type: EnumSortType.DateAdded,
+    direction: EnumSortDirection.Asc,
+  },
 };

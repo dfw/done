@@ -1,7 +1,11 @@
-import { TypeTodo, EnumTag } from './todos';
+import { TypeTodo, EnumTag, EnumSortType, EnumSortDirection } from './todos';
 
 export type TypeState = {
   todos: TypeTodo[];
+  sort: {
+    type: EnumSortType;
+    direction: EnumSortDirection;
+  };
 };
 
 export type TypeAction =
@@ -17,6 +21,18 @@ export type TypeAction =
       payload: {
         id: string;
         done: boolean;
+      };
+    }
+  | {
+      type: 'sortType';
+      payload: {
+        type: EnumSortType;
+      };
+    }
+  | {
+      type: 'sortDirection';
+      payload: {
+        direction: EnumSortDirection;
       };
     };
 

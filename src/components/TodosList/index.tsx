@@ -7,9 +7,10 @@ import {
   Text,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
+import { compareAsc, compareDesc, parseISO } from 'date-fns';
 import { useTodosContext } from '../../providers/TodosProvider';
-import { TagColors } from '../../utils/todos';
-import Header from './Header';
+import { TagColors, isAscending, isDefaultSort } from '../../utils/todos';
+import { EnumSortDirection, EnumSortType } from '../../types/todos';
 
 const Checkbox = styled(MantineCheckbox)`
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
@@ -18,9 +19,38 @@ const Checkbox = styled(MantineCheckbox)`
 
 const TodosList: React.FC = () => {
   const {
-    state: { todos },
+    state: {
+      todos: defaultTodos,
+      sort: { type: sortType, direction: sortDirection },
+    },
     dispatch,
   } = useTodosContext();
+
+  let todos = [...defaultTodos];
+
+  if (!isDefaultSort(sortType, sortDirection)) {
+    switch (sortType) {
+      case EnumSortType.DateAdded:
+        todos = todos.sort((a, b) =>
+          isAscending(sortDirection)
+            ? compareAsc(parseISO(a.dateAdded), parseISO(b.dateAdded))
+            : compareDesc(parseISO(a.dateAdded), parseISO(b.dateAdded))
+        );
+        break;
+      case EnumSortType.DateUpdated:
+        todos = todos.sort((a, b) => {
+          const dateA = a.dateUpdated ?? a.dateAdded;
+          const dateB = b.dateUpdated ?? b.dateAdded;
+
+          return isAscending(sortDirection)
+            ? compareAsc(parseISO(dateA), parseISO(dateB))
+            : compareDesc(parseISO(dateA), parseISO(dateB));
+        });
+        break;
+      default:
+        break;
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -43,21 +73,18 @@ const TodosList: React.FC = () => {
   if (!todos.length) {
     return (
       <>
-        {/* <Header /> */}
-        <Text fz="lg">No todos!</Text>
+        <Text>No todos!</Text>
       </>
     );
   }
 
   return (
     <>
-      {/* <Header /> */}
       <Stack spacing="sm" mt={15}>
         {todos.map(({ id, name, done, tags }) => (
-          <Group spacing="xs">
+          <Group spacing="xs" key={id}>
             <Checkbox
               checked={done}
-              key={id}
               label={name}
               name={id}
               onChange={handleChange}

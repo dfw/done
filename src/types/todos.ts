@@ -7,9 +7,21 @@ export enum EnumTag {
   Important = 'Important',
 }
 
+export enum EnumSortType {
+  DateAdded = 'Date added',
+  DateUpdated = 'Date updated',
+}
+
+export enum EnumSortDirection {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
 export type TypeTodo = {
   id: string;
   name: string;
   done: boolean;
   tags: EnumTag[];
+  dateAdded: string;
+  dateUpdated?: string;
 };

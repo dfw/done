@@ -81,7 +81,10 @@ const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
         <Stack spacing="sm">
           <TextInput
             placeholder="Watch Mad Men"
+            label="Todo Name"
+            size="md"
             data-autofocus
+            withAsterisk
             {...form.getInputProps('name')}
           />
           <ActionIcon onClick={toggleTags}>
@@ -91,7 +94,12 @@ const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
             <Group spacing="xs">
               <Chip.Group multiple {...form.getInputProps('tags')}>
                 {Tags.map(({ label }) => (
-                  <Chip value={label} variant="filled" color={TagColors[label]}>
+                  <Chip
+                    value={label}
+                    variant="filled"
+                    color={TagColors[label]}
+                    key={label}
+                  >
                     {label}
                   </Chip>
                 ))}

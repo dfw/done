@@ -28,8 +28,6 @@
   - Hide completed todos
   - By tags
 - Sort
-  - Oldest
-  - Newest
   - Due Date
 
 ### Local storage
