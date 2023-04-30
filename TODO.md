@@ -8,7 +8,6 @@
 
 ### View todos
 
-- Add badges for tags
 - Add due date
 
 ### Edit todos

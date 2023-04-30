@@ -52,7 +52,7 @@ const TodosList: React.FC = () => {
   return (
     <>
       {/* <Header /> */}
-      <Stack spacing="sm">
+      <Stack spacing="sm" mt={15}>
         {todos.map(({ id, name, done, tags }) => (
           <Group spacing="xs">
             <Checkbox
