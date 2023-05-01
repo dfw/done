@@ -1,11 +1,18 @@
-import { ActionIcon, Group, Menu, Switch, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Group,
+  Menu,
+  Switch,
+  Title,
+  useMantineColorScheme,
+} from '@mantine/core';
 import {
   IconAdjustmentsHorizontal,
   IconMenu2,
-  IconMoonStars,
+  IconMoonFilled,
   IconPlus,
-  IconSun,
 } from '@tabler/icons-react';
+import { useTodosContext } from '../../providers/TodosProvider';
 
 type Props = {
   openAddModal: () => void;
@@ -18,9 +25,22 @@ const Header: React.FC<Props> = ({
   filtersOpened,
   toggleFilters,
 }) => {
+  const {
+    state: { todos },
+  } = useTodosContext();
+
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+
+  const allDone = !!todos.length && todos.every((todo) => todo.done);
+
   return (
     <Group position="center" my={15}>
-      <Title order={1}>Done</Title>
+      <Title
+        order={1}
+        sx={{ textDecoration: allDone ? 'line-through' : 'none' }}
+      >
+        Done
+      </Title>
       <ActionIcon
         onClick={openAddModal}
         color="blue"
@@ -29,7 +49,7 @@ const Header: React.FC<Props> = ({
       >
         <IconPlus />
       </ActionIcon>
-      <Menu position="bottom-end" shadow="md" width={200}>
+      <Menu position="bottom-end" shadow="md" width={200} keepMounted>
         <Menu.Target>
           <ActionIcon>
             <IconMenu2 />
@@ -38,21 +58,27 @@ const Header: React.FC<Props> = ({
         <Menu.Dropdown>
           <Menu.Label>Settings</Menu.Label>
           <Menu.Item
-            icon={<IconAdjustmentsHorizontal size={14} />}
+            icon={<IconAdjustmentsHorizontal size={16} />}
             onClick={toggleFilters}
           >
             {filtersOpened ? 'Hide' : 'Show'} filters
           </Menu.Item>
-          <Menu.Label>
+          <Menu.Item
+            icon={<IconMoonFilled size={16} />}
+            closeMenuOnClick={false}
+            sx={{
+              cursor: 'default',
+            }}
+          >
             <Group position="apart">
-              Theme
+              Dark Mode
               <Switch
                 size="md"
-                onLabel={<IconMoonStars size={16} />}
-                offLabel={<IconSun size={16} />}
+                checked={colorScheme === 'dark'}
+                onChange={() => toggleColorScheme()}
               />
             </Group>
-          </Menu.Label>
+          </Menu.Item>
           <Menu.Divider />
           <Menu.Label>Danger Zone</Menu.Label>
         </Menu.Dropdown>

@@ -85,16 +85,12 @@ const Todos: React.FC = () => {
   };
 
   if (!todos.length) {
-    return (
-      <>
-        <Text>No todos!</Text>
-      </>
-    );
+    return <Text mt={30}>No todos!</Text>;
   }
 
   return (
     <>
-      <Stack spacing="sm" mt={15}>
+      <Stack spacing="sm" mt={30}>
         {todos.map(({ id, name, done, tags }) => (
           <Group spacing="xs" key={id}>
             <Checkbox

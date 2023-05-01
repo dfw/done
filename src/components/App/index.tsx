@@ -1,7 +1,8 @@
-import { Container, MantineProvider } from '@mantine/core';
+import { Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Notifications } from '@mantine/notifications';
-import TodoProvider from '../../providers/TodosProvider';
+import ThemeProvider from '../../providers/ThemeProvider';
+import TodosProvider from '../../providers/TodosProvider';
 import Header from '../Header';
 import AddModal from '../AddModal';
 import Todos from '../Todos';
@@ -13,14 +14,8 @@ const App: React.FC = () => {
   const [filtersOpened, { toggle: toggleFilters }] = useDisclosure(false);
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        colorScheme: 'dark',
-      }}
-    >
-      <TodoProvider>
+    <ThemeProvider>
+      <TodosProvider>
         <Container size="600px">
           <Header
             openAddModal={openAddModal}
@@ -31,9 +26,9 @@ const App: React.FC = () => {
           <Todos />
           <AddModal opened={addModalOpened} closeModal={closeAddModal} />
         </Container>
-      </TodoProvider>
+      </TodosProvider>
       <Notifications />
-    </MantineProvider>
+    </ThemeProvider>
   );
 };
 
