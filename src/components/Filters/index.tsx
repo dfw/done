@@ -63,7 +63,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="filters" pt={15}>
-        <Group>
+        <Group spacing="xs">
           <Text fw={700}>Filters:</Text>
           <Button.Group>
             {Object.values(EnumShow).map((show) => (
@@ -79,7 +79,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
         </Group>
       </Tabs.Panel>
       <Tabs.Panel value="sort" pt={15}>
-        <Group>
+        <Group spacing="xs">
           <Text fw={700}>Sort by:</Text>
           <Button.Group>
             {Object.values(EnumSortType).map((sortType) => (

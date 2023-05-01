@@ -24,6 +24,7 @@ export type TypeAction =
       payload: {
         name: string;
         tags: EnumTag[];
+        dueDate: string | null;
       };
     }
   | {

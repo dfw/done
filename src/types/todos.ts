@@ -30,4 +30,5 @@ export type TypeTodo = {
   tags: EnumTag[];
   dateAdded: string;
   dateUpdated?: string;
+  dueDate: string | null;
 };

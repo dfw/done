@@ -2,14 +2,6 @@
 
 ## Functionality
 
-### Add todo modal
-
-- Add due date
-
-### View todos
-
-- Add due date
-
 ### Edit todos
 
 - Use add modal for this?
@@ -34,11 +26,6 @@
 - Save todos and settings to local storage
 
 ## Design
-
-### Dark Mode
-
-- Add providers and hooks
-- Toggle button in header
 
 ### Fix header layout
 

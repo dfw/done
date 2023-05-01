@@ -5,7 +5,7 @@ import { EnumShow, EnumSortDirection, EnumSortType } from '../types/todos';
 export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
     case 'add':
-      const { name, tags } = action.payload;
+      const { name, tags, dueDate } = action.payload;
 
       return {
         ...state,
@@ -13,10 +13,11 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           ...state.todos,
           {
             id: uuidv4(),
+            dateAdded: new Date().toISOString(),
             name,
             done: false,
             tags,
-            dateAdded: new Date().toISOString(),
+            dueDate,
           },
         ],
       };

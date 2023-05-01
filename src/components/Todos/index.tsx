@@ -7,7 +7,7 @@ import {
   Text,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { compareAsc, compareDesc, parseISO } from 'date-fns';
+import { compareAsc, compareDesc, format, parseISO } from 'date-fns';
 import { useTodosContext } from '../../providers/TodosProvider';
 import {
   TagColors,
@@ -91,7 +91,7 @@ const Todos: React.FC = () => {
   return (
     <>
       <Stack spacing="sm" mt={30}>
-        {todos.map(({ id, name, done, tags }) => (
+        {todos.map(({ id, name, done, tags, dueDate }) => (
           <Group spacing="xs" key={id}>
             <Checkbox
               checked={done}
@@ -101,6 +101,11 @@ const Todos: React.FC = () => {
               size="md"
             />
             <Group spacing="xs">
+              {dueDate ? (
+                <Badge size="sm" color="gray">
+                  {format(new Date(dueDate), 'MMM d')}
+                </Badge>
+              ) : null}
               {tags.map((tag) => (
                 <Badge variant="filled" size="sm" color={TagColors[tag]}>
                   {tag}
