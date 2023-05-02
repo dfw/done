@@ -8,15 +8,12 @@ import {
 } from '../../types/todos';
 import { DISPLAY_TYPES, SORT_TYPES, SORT_DIRECTIONS } from '../../utils/todos';
 
-type Props = {
-  opened: boolean;
-};
-
-const Filters: React.FC<Props> = ({ opened }) => {
+const Filters: React.FC = () => {
   const {
     state: {
       sort: { type: sortType, direction: sortDirection },
       filters: { displayType },
+      showFilters,
     },
     dispatch,
   } = useTodosContext();
@@ -54,7 +51,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
     }
   };
 
-  return opened ? (
+  return showFilters ? (
     <Container>
       <Tabs defaultValue="filters">
         <Tabs.List>

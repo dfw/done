@@ -12,22 +12,15 @@ import Filters from '../Filters';
 const App: React.FC = () => {
   const [addModalOpened, { open: openAddModal, close: closeAddModal }] =
     useDisclosure(false);
-  const [filtersOpened, { toggle: toggleFilters }] = useDisclosure(false);
 
   return (
     <ThemeProvider>
       <TodosProvider>
         <AppShell
-          header={
-            <Header
-              openAddModal={openAddModal}
-              filtersOpened={filtersOpened}
-              toggleFilters={toggleFilters}
-            />
-          }
+          header={<Header openAddModal={openAddModal} />}
           footer={<Footer />}
         >
-          <Filters opened={filtersOpened} />
+          <Filters />
           <Todos />
           <AddModal opened={addModalOpened} closeModal={closeAddModal} />
         </AppShell>

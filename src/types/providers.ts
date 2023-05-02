@@ -16,6 +16,7 @@ export type TypeState = {
     displayType: EnumDisplayType;
     tags: EnumTag[];
   };
+  showFilters: boolean;
 };
 
 export type TypeAction =
@@ -33,6 +34,9 @@ export type TypeAction =
         id: string;
         done: boolean;
       };
+    }
+  | {
+      type: 'toggleFilters';
     }
   | {
       type: 'changeSortType';

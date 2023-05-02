@@ -19,8 +19,6 @@ import { useTodosContext } from '../../providers/TodosProvider';
 
 type Props = {
   openAddModal: () => void;
-  filtersOpened: boolean;
-  toggleFilters: () => void;
 };
 
 const Container = styled(MantineContainer)`
@@ -30,18 +28,21 @@ const Container = styled(MantineContainer)`
   height: 100%;
 `;
 
-const Header: React.FC<Props> = ({
-  openAddModal,
-  filtersOpened,
-  toggleFilters,
-}) => {
+const Header: React.FC<Props> = ({ openAddModal }) => {
   const {
-    state: { todos },
+    state: { todos, showFilters },
+    dispatch,
   } = useTodosContext();
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   const allDone = !!todos.length && todos.every((todo) => todo.done);
+
+  const handleFiltersClick = () => {
+    dispatch({
+      type: 'toggleFilters',
+    });
+  };
 
   return (
     <MantineHeader height={{ base: 50, sm: 60, md: 70, lg: 80 }}>
@@ -70,9 +71,9 @@ const Header: React.FC<Props> = ({
             <Menu.Label>Settings</Menu.Label>
             <Menu.Item
               icon={<IconAdjustmentsHorizontal size={16} />}
-              onClick={toggleFilters}
+              onClick={handleFiltersClick}
             >
-              {filtersOpened ? 'Hide' : 'Show'} filters
+              {showFilters ? 'Hide' : 'Show'} filters
             </Menu.Item>
             <Menu.Item
               icon={<IconMoonFilled size={16} />}

@@ -45,6 +45,12 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         todos: nextTodos,
       };
 
+    case 'toggleFilters':
+      return {
+        ...state,
+        showFilters: !state.showFilters,
+      };
+
     case 'changeSortType':
       const { type } = action.payload;
 
@@ -93,4 +99,5 @@ export const initialState: TypeState = {
     displayType: EnumDisplayType.All,
     tags: [],
   },
+  showFilters: false,
 };
