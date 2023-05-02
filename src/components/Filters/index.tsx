@@ -1,18 +1,12 @@
 import { Button, Container, Group, Tabs, Text } from '@mantine/core';
-import {
-  IconFilter,
-  IconArrowsSort,
-  IconSearch,
-  IconSortAscending,
-  IconSortDescending,
-} from '@tabler/icons-react';
+import { IconFilter, IconArrowsSort, IconSearch } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
 import {
   EnumDisplayType,
   EnumSortDirection,
   EnumSortType,
 } from '../../types/todos';
-import { DisplayTypes } from '../../utils/todos';
+import { DISPLAY_TYPES, SORT_TYPES, SORT_DIRECTIONS } from '../../utils/todos';
 
 type Props = {
   opened: boolean;
@@ -72,7 +66,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
           <Group spacing="xs">
             <Text fw={700}>Filters:</Text>
             <Button.Group>
-              {Object.values(DisplayTypes).map(({ label, value }) => (
+              {Object.values(DISPLAY_TYPES).map(({ label, value }) => (
                 <Button
                   variant={displayType === value ? 'filled' : 'light'}
                   onClick={() => handleDisplayFilter(value)}
@@ -88,33 +82,26 @@ const Filters: React.FC<Props> = ({ opened }) => {
           <Group spacing="xs">
             <Text fw={700}>Sort by:</Text>
             <Button.Group>
-              {Object.values(EnumSortType).map((sortType) => (
+              {Object.values(SORT_TYPES).map(({ label, value }) => (
                 <Button
-                  variant={sort.type === sortType ? 'filled' : 'light'}
-                  onClick={() => handleSortTypeClick(sortType)}
-                  key={sortType}
+                  variant={sort.type === value ? 'filled' : 'light'}
+                  onClick={() => handleSortTypeClick(value)}
+                  key={value}
                 >
-                  {sortType}
+                  {label}
                 </Button>
               ))}
             </Button.Group>
             <Button.Group>
-              <Button
-                variant={
-                  sort.direction === EnumSortDirection.Asc ? 'filled' : 'light'
-                }
-                onClick={() => handleSortDirectionClick(EnumSortDirection.Asc)}
-              >
-                <IconSortAscending />
-              </Button>
-              <Button
-                variant={
-                  sort.direction === EnumSortDirection.Desc ? 'filled' : 'light'
-                }
-                onClick={() => handleSortDirectionClick(EnumSortDirection.Desc)}
-              >
-                <IconSortDescending />
-              </Button>
+              {Object.values(SORT_DIRECTIONS).map(({ icon: Icon, value }) => (
+                <Button
+                  variant={sort.direction === value ? 'filled' : 'light'}
+                  onClick={() => handleSortDirectionClick(value)}
+                  key={value}
+                >
+                  <Icon />
+                </Button>
+              ))}
             </Button.Group>
           </Group>
         </Tabs.Panel>

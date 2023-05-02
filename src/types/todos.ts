@@ -13,8 +13,8 @@ export enum EnumSortType {
 }
 
 export enum EnumSortDirection {
-  Asc = 'asc',
-  Desc = 'desc',
+  Ascending = 'asc',
+  Descending = 'desc',
 }
 
 export enum EnumDisplayType {

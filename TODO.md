@@ -2,8 +2,6 @@
 
 ## Functionality
 
-### Add constants for enums
-
 ### Save show filters to state
 
 ### Edit todos

@@ -1,3 +1,4 @@
+import { IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import {
   EnumDisplayType,
   EnumSortDirection,
@@ -5,7 +6,7 @@ import {
   EnumTag,
 } from '../types/todos';
 
-export const Tags = Object.freeze({
+export const TAGS = Object.freeze({
   [EnumTag.Personal]: {
     label: 'Personal',
     value: EnumTag.Personal,
@@ -38,7 +39,7 @@ export const Tags = Object.freeze({
   },
 });
 
-export const DisplayTypes = Object.freeze({
+export const DISPLAY_TYPES = Object.freeze({
   [EnumDisplayType.All]: {
     label: 'All',
     value: EnumDisplayType.All,
@@ -53,7 +54,7 @@ export const DisplayTypes = Object.freeze({
   },
 });
 
-export const SortType = Object.freeze({
+export const SORT_TYPES = Object.freeze({
   [EnumSortType.DateAdded]: {
     label: 'Date Added',
     value: EnumSortType.DateAdded,
@@ -64,15 +65,26 @@ export const SortType = Object.freeze({
   },
 });
 
+export const SORT_DIRECTIONS = Object.freeze({
+  [EnumSortDirection.Ascending]: {
+    icon: IconSortAscending,
+    value: EnumSortDirection.Ascending,
+  },
+  [EnumSortDirection.Descending]: {
+    icon: IconSortDescending,
+    value: EnumSortDirection.Descending,
+  },
+});
+
 export const isDefaultSort = (
   sortType: EnumSortType,
   sortDirection: EnumSortDirection
 ) =>
   sortType === EnumSortType.DateAdded &&
-  sortDirection === EnumSortDirection.Asc;
+  sortDirection === EnumSortDirection.Ascending;
 
 export const isAscending = (sortDirection: EnumSortDirection) =>
-  sortDirection === EnumSortDirection.Asc;
+  sortDirection === EnumSortDirection.Ascending;
 
 export const isDefaultFilter = (displayType: EnumDisplayType) =>
   displayType === EnumDisplayType.All;

@@ -15,7 +15,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { IconTags, IconCalendarDue } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
-import { Tags } from '../../utils/todos';
+import { TAGS } from '../../utils/todos';
 import { EnumTag } from '../../types/todos';
 
 type Props = {
@@ -104,7 +104,7 @@ const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
           <Collapse in={tagsOpened} transitionDuration={150}>
             <Group spacing="xs" position="center">
               <Chip.Group multiple {...form.getInputProps('tags')}>
-                {Object.values(Tags).map(({ label, value, color }) => (
+                {Object.values(TAGS).map(({ label, value, color }) => (
                   <Chip
                     value={value}
                     variant="filled"

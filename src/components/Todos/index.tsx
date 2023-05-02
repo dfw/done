@@ -14,7 +14,7 @@ import {
   isAscending,
   isDefaultSort,
   isDefaultFilter,
-  Tags,
+  TAGS,
 } from '../../utils/todos';
 import { EnumDisplayType, EnumSortType } from '../../types/todos';
 
@@ -115,7 +115,7 @@ const Todos: React.FC = () => {
                 <Badge
                   variant="filled"
                   size="sm"
-                  color={Tags[tag].color}
+                  color={TAGS[tag].color}
                   key="tag"
                 >
                   {tag}
