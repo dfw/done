@@ -21,11 +21,9 @@
 - Sort
   - Due Date
 
-### Local storage
-
-- Save todos and settings to local storage
-
 ## Design
+
+### Move plus button to bottom right of app body
 
 ### Use new fonts??
 

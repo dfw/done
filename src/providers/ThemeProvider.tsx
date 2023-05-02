@@ -13,7 +13,6 @@ const ThemeProvider: React.FC<Props> = ({ children }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'dark',
-    getInitialValueInEffect: true,
   });
 
   const toggleColorScheme = (value?: ColorScheme) =>

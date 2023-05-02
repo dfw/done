@@ -112,7 +112,12 @@ const Todos: React.FC = () => {
                 </Badge>
               ) : null}
               {tags.map((tag) => (
-                <Badge variant="filled" size="sm" color={TagColors[tag]}>
+                <Badge
+                  variant="filled"
+                  size="sm"
+                  color={TagColors[tag]}
+                  key="tag"
+                >
                   {tag}
                 </Badge>
               ))}
