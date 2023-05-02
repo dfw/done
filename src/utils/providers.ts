@@ -84,6 +84,12 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         },
       };
 
+    case 'deleteAllTodos':
+      return {
+        ...state,
+        todos: [],
+      };
+
     default:
       return { ...state };
   }

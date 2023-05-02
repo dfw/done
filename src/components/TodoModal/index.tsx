@@ -29,7 +29,7 @@ type FormValues = {
   dueDate: Date | null;
 };
 
-const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
+const TodoModal: React.FC<Props> = ({ opened, closeModal }) => {
   const { dispatch } = useTodosContext();
   const [tagsOpened, { toggle: toggleTags, close: closeTags }] =
     useDisclosure(false);
@@ -139,4 +139,4 @@ const AddModal: React.FC<Props> = ({ opened, closeModal }) => {
   );
 };
 
-export default AddModal;
+export default TodoModal;

@@ -55,6 +55,9 @@ export type TypeAction =
       payload: {
         displayType: EnumDisplayType;
       };
+    }
+  | {
+      type: 'deleteAllTodos';
     };
 
 export type TypeContext = {

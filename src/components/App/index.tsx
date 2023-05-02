@@ -5,7 +5,7 @@ import ThemeProvider from '../../providers/ThemeProvider';
 import TodosProvider from '../../providers/TodosProvider';
 import Header from '../Header';
 import Footer from '../Footer';
-import AddModal from '../AddModal';
+import TodoModal from '../TodoModal';
 import Todos from '../Todos';
 import Filters from '../Filters';
 
@@ -22,7 +22,7 @@ const App: React.FC = () => {
         >
           <Filters />
           <Todos />
-          <AddModal opened={addModalOpened} closeModal={closeAddModal} />
+          <TodoModal opened={addModalOpened} closeModal={closeAddModal} />
         </AppShell>
       </TodosProvider>
       <Notifications />
