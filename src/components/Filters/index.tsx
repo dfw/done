@@ -15,37 +15,43 @@ type Props = {
 const Filters: React.FC<Props> = ({ opened }) => {
   const {
     state: {
-      sort,
+      sort: { type: sortType, direction: sortDirection },
       filters: { displayType },
     },
     dispatch,
   } = useTodosContext();
 
+  const handleDisplayFilter = (type: EnumDisplayType) => {
+    if (type !== displayType) {
+      dispatch({
+        type: 'filterDisplay',
+        payload: {
+          displayType: type,
+        },
+      });
+    }
+  };
+
   const handleSortTypeClick = (type: EnumSortType) => {
-    dispatch({
-      type: 'changeSortType',
-      payload: {
-        type,
-      },
-    });
+    if (type !== sortType) {
+      dispatch({
+        type: 'changeSortType',
+        payload: {
+          type,
+        },
+      });
+    }
   };
 
   const handleSortDirectionClick = (direction: EnumSortDirection) => {
-    dispatch({
-      type: 'changeSortDirection',
-      payload: {
-        direction,
-      },
-    });
-  };
-
-  const handleDisplayFilter = (displayType: EnumDisplayType) => {
-    dispatch({
-      type: 'filterDisplay',
-      payload: {
-        displayType,
-      },
-    });
+    if (direction !== sortDirection) {
+      dispatch({
+        type: 'changeSortDirection',
+        payload: {
+          direction,
+        },
+      });
+    }
   };
 
   return opened ? (
@@ -84,7 +90,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
             <Button.Group>
               {Object.values(SORT_TYPES).map(({ label, value }) => (
                 <Button
-                  variant={sort.type === value ? 'filled' : 'light'}
+                  variant={sortType === value ? 'filled' : 'light'}
                   onClick={() => handleSortTypeClick(value)}
                   key={value}
                 >
@@ -95,7 +101,7 @@ const Filters: React.FC<Props> = ({ opened }) => {
             <Button.Group>
               {Object.values(SORT_DIRECTIONS).map(({ icon: Icon, value }) => (
                 <Button
-                  variant={sort.direction === value ? 'filled' : 'light'}
+                  variant={sortDirection === value ? 'filled' : 'light'}
                   onClick={() => handleSortDirectionClick(value)}
                   key={value}
                 >
