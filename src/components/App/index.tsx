@@ -1,9 +1,10 @@
-import { Container } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Notifications } from '@mantine/notifications';
 import ThemeProvider from '../../providers/ThemeProvider';
 import TodosProvider from '../../providers/TodosProvider';
 import Header from '../Header';
+import Footer from '../Footer';
 import AddModal from '../AddModal';
 import Todos from '../Todos';
 import Filters from '../Filters';
@@ -16,16 +17,20 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <TodosProvider>
-        <Container size="600px">
-          <Header
-            openAddModal={openAddModal}
-            filtersOpened={filtersOpened}
-            toggleFilters={toggleFilters}
-          />
+        <AppShell
+          header={
+            <Header
+              openAddModal={openAddModal}
+              filtersOpened={filtersOpened}
+              toggleFilters={toggleFilters}
+            />
+          }
+          footer={<Footer />}
+        >
           <Filters opened={filtersOpened} />
           <Todos />
           <AddModal opened={addModalOpened} closeModal={closeAddModal} />
-        </Container>
+        </AppShell>
       </TodosProvider>
       <Notifications />
     </ThemeProvider>

@@ -27,7 +27,7 @@
 
 ## Design
 
-### Fix header layout
+### Use new fonts??
 
 ### Mobile first!!!
 

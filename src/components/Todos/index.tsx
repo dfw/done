@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import {
   Badge,
   Checkbox as MantineCheckbox,
+  Container,
   Group,
   Stack,
   Text,
@@ -85,12 +86,16 @@ const Todos: React.FC = () => {
   };
 
   if (!todos.length) {
-    return <Text mt={30}>No todos!</Text>;
+    return (
+      <Container mt={30}>
+        <Text>No todos!</Text>
+      </Container>
+    );
   }
 
   return (
-    <>
-      <Stack spacing="sm" mt={30}>
+    <Container mt={30}>
+      <Stack spacing="sm">
         {todos.map(({ id, name, done, tags, dueDate }) => (
           <Group spacing="xs" key={id}>
             <Checkbox
@@ -115,7 +120,7 @@ const Todos: React.FC = () => {
           </Group>
         ))}
       </Stack>
-    </>
+    </Container>
   );
 };
 
