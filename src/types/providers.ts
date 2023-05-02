@@ -3,7 +3,7 @@ import {
   EnumTag,
   EnumSortType,
   EnumSortDirection,
-  EnumShow,
+  EnumDisplayType,
 } from './todos';
 
 export type TypeState = {
@@ -13,14 +13,14 @@ export type TypeState = {
     direction: EnumSortDirection;
   };
   filters: {
-    show: EnumShow;
+    displayType: EnumDisplayType;
     tags: EnumTag[];
   };
 };
 
 export type TypeAction =
   | {
-      type: 'add';
+      type: 'addTodo';
       payload: {
         name: string;
         tags: EnumTag[];
@@ -28,28 +28,28 @@ export type TypeAction =
       };
     }
   | {
-      type: 'check';
+      type: 'checkTodo';
       payload: {
         id: string;
         done: boolean;
       };
     }
   | {
-      type: 'sortType';
+      type: 'changeSortType';
       payload: {
         type: EnumSortType;
       };
     }
   | {
-      type: 'sortDirection';
+      type: 'changeSortDirection';
       payload: {
         direction: EnumSortDirection;
       };
     }
   | {
-      type: 'filterShow';
+      type: 'filterDisplay';
       payload: {
-        show: EnumShow;
+        displayType: EnumDisplayType;
       };
     };
 

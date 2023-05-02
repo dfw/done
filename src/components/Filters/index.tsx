@@ -7,7 +7,12 @@ import {
   IconSortDescending,
 } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
-import { EnumShow, EnumSortDirection, EnumSortType } from '../../types/todos';
+import {
+  EnumDisplayType,
+  EnumSortDirection,
+  EnumSortType,
+} from '../../types/todos';
+import { DisplayTypes } from '../../utils/todos';
 
 type Props = {
   opened: boolean;
@@ -17,14 +22,14 @@ const Filters: React.FC<Props> = ({ opened }) => {
   const {
     state: {
       sort,
-      filters: { show: showFilter },
+      filters: { displayType },
     },
     dispatch,
   } = useTodosContext();
 
   const handleSortTypeClick = (type: EnumSortType) => {
     dispatch({
-      type: 'sortType',
+      type: 'changeSortType',
       payload: {
         type,
       },
@@ -33,18 +38,18 @@ const Filters: React.FC<Props> = ({ opened }) => {
 
   const handleSortDirectionClick = (direction: EnumSortDirection) => {
     dispatch({
-      type: 'sortDirection',
+      type: 'changeSortDirection',
       payload: {
         direction,
       },
     });
   };
 
-  const handleFilterShow = (show: EnumShow) => {
+  const handleDisplayFilter = (displayType: EnumDisplayType) => {
     dispatch({
-      type: 'filterShow',
+      type: 'filterDisplay',
       payload: {
-        show,
+        displayType,
       },
     });
   };
@@ -67,13 +72,13 @@ const Filters: React.FC<Props> = ({ opened }) => {
           <Group spacing="xs">
             <Text fw={700}>Filters:</Text>
             <Button.Group>
-              {Object.values(EnumShow).map((show) => (
+              {Object.values(DisplayTypes).map(({ label, value }) => (
                 <Button
-                  variant={showFilter === show ? 'filled' : 'light'}
-                  onClick={() => handleFilterShow(show)}
-                  key={show}
+                  variant={displayType === value ? 'filled' : 'light'}
+                  onClick={() => handleDisplayFilter(value)}
+                  key={value}
                 >
-                  {show}
+                  {label}
                 </Button>
               ))}
             </Button.Group>

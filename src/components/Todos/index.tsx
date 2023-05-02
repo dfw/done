@@ -11,12 +11,12 @@ import { showNotification } from '@mantine/notifications';
 import { compareAsc, compareDesc, format, parseISO } from 'date-fns';
 import { useTodosContext } from '../../providers/TodosProvider';
 import {
-  TagColors,
   isAscending,
   isDefaultSort,
   isDefaultFilter,
+  Tags,
 } from '../../utils/todos';
-import { EnumShow, EnumSortType } from '../../types/todos';
+import { EnumDisplayType, EnumSortType } from '../../types/todos';
 
 const Checkbox = styled(MantineCheckbox)`
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
@@ -28,15 +28,15 @@ const Todos: React.FC = () => {
     state: {
       todos: defaultTodos,
       sort: { type: sortType, direction: sortDirection },
-      filters: { show: showFilter },
+      filters: { displayType },
     },
     dispatch,
   } = useTodosContext();
 
   let todos = [...defaultTodos];
 
-  if (!isDefaultFilter(showFilter)) {
-    const done = showFilter === EnumShow.Done;
+  if (!isDefaultFilter(displayType)) {
+    const done = displayType === EnumDisplayType.Done;
 
     todos = todos.filter((todo) => {
       return todo.done === done;
@@ -67,9 +67,9 @@ const Todos: React.FC = () => {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: 'check',
+      type: 'checkTodo',
       payload: {
         id: e.target.name,
         done: e.target.checked,
@@ -102,7 +102,7 @@ const Todos: React.FC = () => {
               checked={done}
               label={name}
               name={id}
-              onChange={handleChange}
+              onChange={handleCheckTodo}
               size="md"
             />
             <Group spacing="xs">
@@ -115,7 +115,7 @@ const Todos: React.FC = () => {
                 <Badge
                   variant="filled"
                   size="sm"
-                  color={TagColors[tag]}
+                  color={Tags[tag].color}
                   key="tag"
                 >
                   {tag}

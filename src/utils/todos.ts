@@ -1,38 +1,67 @@
 import {
-  EnumShow,
+  EnumDisplayType,
   EnumSortDirection,
   EnumSortType,
   EnumTag,
 } from '../types/todos';
 
-export const Tags = Object.freeze([
-  {
-    label: EnumTag.Personal,
+export const Tags = Object.freeze({
+  [EnumTag.Personal]: {
+    label: 'Personal',
+    value: EnumTag.Personal,
+    color: 'blue',
   },
-  {
-    label: EnumTag.Work,
+  [EnumTag.Work]: {
+    label: 'Work',
+    value: EnumTag.Work,
+    color: 'gray',
   },
-  {
-    label: EnumTag.Shopping,
+  [EnumTag.Shopping]: {
+    label: 'Shopping',
+    value: EnumTag.Shopping,
+    color: 'orange',
   },
-  {
-    label: EnumTag.Errand,
+  [EnumTag.Errand]: {
+    label: 'Errand',
+    value: EnumTag.Errand,
+    color: 'violet',
   },
-  {
-    label: EnumTag.Home,
+  [EnumTag.Home]: {
+    label: 'Home',
+    value: EnumTag.Home,
+    color: 'green',
   },
-  {
-    label: EnumTag.Important,
+  [EnumTag.Important]: {
+    label: 'Important',
+    value: EnumTag.Important,
+    color: 'red',
   },
-]);
+});
 
-export const TagColors = Object.freeze({
-  [EnumTag.Personal]: 'blue',
-  [EnumTag.Work]: 'gray',
-  [EnumTag.Shopping]: 'orange',
-  [EnumTag.Errand]: 'violet',
-  [EnumTag.Home]: 'green',
-  [EnumTag.Important]: 'red',
+export const DisplayTypes = Object.freeze({
+  [EnumDisplayType.All]: {
+    label: 'All',
+    value: EnumDisplayType.All,
+  },
+  [EnumDisplayType.NotDone]: {
+    label: 'Not Done',
+    value: EnumDisplayType.NotDone,
+  },
+  [EnumDisplayType.Done]: {
+    label: 'Done',
+    value: EnumDisplayType.Done,
+  },
+});
+
+export const SortType = Object.freeze({
+  [EnumSortType.DateAdded]: {
+    label: 'Date Added',
+    value: EnumSortType.DateAdded,
+  },
+  [EnumSortType.DateUpdated]: {
+    label: 'Date Updated',
+    value: EnumSortType.DateUpdated,
+  },
 });
 
 export const isDefaultSort = (
@@ -45,4 +74,5 @@ export const isDefaultSort = (
 export const isAscending = (sortDirection: EnumSortDirection) =>
   sortDirection === EnumSortDirection.Asc;
 
-export const isDefaultFilter = (show: EnumShow) => show === EnumShow.All;
+export const isDefaultFilter = (displayType: EnumDisplayType) =>
+  displayType === EnumDisplayType.All;

@@ -1,15 +1,15 @@
 export enum EnumTag {
-  Personal = 'Personal',
-  Work = 'Work',
-  Shopping = 'Shopping',
-  Errand = 'Errand',
-  Home = 'Home',
-  Important = 'Important',
+  Personal = 'personal',
+  Work = 'work',
+  Shopping = 'shopping',
+  Errand = 'errand',
+  Home = 'home',
+  Important = 'important',
 }
 
 export enum EnumSortType {
-  DateAdded = 'Date added',
-  DateUpdated = 'Date updated',
+  DateAdded = 'date-added',
+  DateUpdated = 'date-updated',
 }
 
 export enum EnumSortDirection {
@@ -17,10 +17,10 @@ export enum EnumSortDirection {
   Desc = 'desc',
 }
 
-export enum EnumShow {
-  All = 'All',
-  NotDone = 'Not done',
-  Done = 'Done',
+export enum EnumDisplayType {
+  All = 'all',
+  NotDone = 'not-done',
+  Done = 'done',
 }
 
 export type TypeTodo = {

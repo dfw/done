@@ -1,10 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TypeState, TypeAction } from '../types/providers';
-import { EnumShow, EnumSortDirection, EnumSortType } from '../types/todos';
+import {
+  EnumDisplayType,
+  EnumSortDirection,
+  EnumSortType,
+} from '../types/todos';
 
 export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
-    case 'add':
+    case 'addTodo':
       const { name, tags, dueDate } = action.payload;
 
       return {
@@ -22,7 +26,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         ],
       };
 
-    case 'check':
+    case 'checkTodo':
       const { id, done } = action.payload;
       const nextTodos = state.todos.map((todo) => {
         if (todo.id === id) {
@@ -41,7 +45,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         todos: nextTodos,
       };
 
-    case 'sortType':
+    case 'changeSortType':
       const { type } = action.payload;
 
       return {
@@ -52,7 +56,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         },
       };
 
-    case 'sortDirection':
+    case 'changeSortDirection':
       const { direction } = action.payload;
 
       return {
@@ -63,14 +67,14 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         },
       };
 
-    case 'filterShow':
-      const { show } = action.payload;
+    case 'filterDisplay':
+      const { displayType } = action.payload;
 
       return {
         ...state,
         filters: {
           ...state.filters,
-          show,
+          displayType,
         },
       };
 
@@ -86,7 +90,7 @@ export const initialState: TypeState = {
     direction: EnumSortDirection.Asc,
   },
   filters: {
-    show: EnumShow.All,
+    displayType: EnumDisplayType.All,
     tags: [],
   },
 };
