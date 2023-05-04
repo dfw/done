@@ -10,14 +10,10 @@
 
 - Settings
   - Danger Zone
-    - Delete all todos
-      - Add modal warning
     - Reset app
       - Add modal warning
 - Search
   - Search todo text
-- Filter
-  - By tags
 - Sort
   - Due Date
 

@@ -57,6 +57,12 @@ export type TypeAction =
       };
     }
   | {
+      type: 'filterTags';
+      payload: {
+        tags: EnumTag[];
+      };
+    }
+  | {
       type: 'deleteAllTodos';
     };
 

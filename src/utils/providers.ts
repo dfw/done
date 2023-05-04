@@ -8,7 +8,7 @@ import {
 
 export const reducer = (state: TypeState, action: TypeAction) => {
   switch (action.type) {
-    case 'addTodo':
+    case 'addTodo': {
       const { name, tags, dueDate } = action.payload;
 
       return {
@@ -25,8 +25,8 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           },
         ],
       };
-
-    case 'checkTodo':
+    }
+    case 'checkTodo': {
       const { id, done } = action.payload;
       const nextTodos = state.todos.map((todo) => {
         if (todo.id === id) {
@@ -44,14 +44,14 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         ...state,
         todos: nextTodos,
       };
-
-    case 'toggleFilters':
+    }
+    case 'toggleFilters': {
       return {
         ...state,
         showFilters: !state.showFilters,
       };
-
-    case 'changeSortType':
+    }
+    case 'changeSortType': {
       const { type } = action.payload;
 
       return {
@@ -61,8 +61,8 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           type,
         },
       };
-
-    case 'changeSortDirection':
+    }
+    case 'changeSortDirection': {
       const { direction } = action.payload;
 
       return {
@@ -72,8 +72,8 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           direction,
         },
       };
-
-    case 'filterDisplay':
+    }
+    case 'filterDisplay': {
       const { displayType } = action.payload;
 
       return {
@@ -83,15 +83,27 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           displayType,
         },
       };
+    }
+    case 'filterTags': {
+      const { tags } = action.payload;
 
-    case 'deleteAllTodos':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          tags,
+        },
+      };
+    }
+    case 'deleteAllTodos': {
       return {
         ...state,
         todos: [],
       };
-
-    default:
+    }
+    default: {
       return { ...state };
+    }
   }
 };
 

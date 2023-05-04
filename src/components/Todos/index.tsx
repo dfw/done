@@ -28,18 +28,24 @@ const Todos: React.FC = () => {
     state: {
       todos: defaultTodos,
       sort: { type: sortType, direction: sortDirection },
-      filters: { displayType },
+      filters: { displayType: displayTypeFilter, tags: tagsFilter },
     },
     dispatch,
   } = useTodosContext();
 
   let todos = [...defaultTodos];
 
-  if (!isDefaultFilter(displayType)) {
-    const done = displayType === EnumDisplayType.Done;
+  if (!isDefaultFilter(displayTypeFilter)) {
+    const done = displayTypeFilter === EnumDisplayType.Done;
 
     todos = todos.filter((todo) => {
       return todo.done === done;
+    });
+  }
+
+  if (!!tagsFilter.length) {
+    todos = todos.filter(({ tags }) => {
+      return tags.some((tag) => tagsFilter.includes(tag));
     });
   }
 
@@ -94,7 +100,7 @@ const Todos: React.FC = () => {
   }
 
   return (
-    <Container mt={30}>
+    <Container mt={15}>
       <Stack spacing="sm">
         {todos.map(({ id, name, done, tags, dueDate }) => (
           <Group spacing="xs" key={id}>
