@@ -64,6 +64,9 @@ export type TypeAction =
     }
   | {
       type: 'deleteAllTodos';
+    }
+  | {
+      type: 'resetApp';
     };
 
 export type TypeContext = {

@@ -101,6 +101,9 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         todos: [],
       };
     }
+    case 'resetApp': {
+      return { ...initialState };
+    }
     default: {
       return { ...state };
     }

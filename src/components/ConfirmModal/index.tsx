@@ -1,31 +1,32 @@
-import { Alert, Button, Group, Modal, Stack, Text } from '@mantine/core';
-import { IconAlertTriangleFilled } from '@tabler/icons-react';
-import { useTodosContext } from '../../providers/TodosProvider';
+import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 
 type Props = {
   opened: boolean;
   closeModal: () => void;
   title: string;
+  alert?: React.ReactNode;
+  message: string;
+  onConfirm: () => void;
 };
 
-const ConfirmModal: React.FC<Props> = ({ opened, closeModal, title }) => {
-  const { dispatch } = useTodosContext();
-
+const ConfirmModal: React.FC<Props> = ({
+  opened,
+  closeModal,
+  title,
+  alert,
+  message,
+  onConfirm,
+}) => {
   const handleConfirmClick = () => {
-    dispatch({
-      type: 'deleteAllTodos',
-    });
-
+    onConfirm();
     closeModal();
   };
 
   return (
     <Modal opened={opened} onClose={closeModal} title={title}>
       <Stack>
-        <Alert icon={<IconAlertTriangleFilled />} title="Warning!" color="red">
-          This will permanently delete all your todos.
-        </Alert>
-        <Text>Are you sure you want to delete all your todos?</Text>
+        {alert}
+        <Text>{message}</Text>
         <Group position="right" spacing="sm">
           <Button color="red" onClick={handleConfirmClick}>
             Yes

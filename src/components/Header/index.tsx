@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import {
   ActionIcon,
+  Alert,
   Container as MantineContainer,
   Group,
   Header as MantineHeader,
@@ -12,9 +13,11 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconAdjustmentsHorizontal,
+  IconAlertTriangleFilled,
   IconMenu2,
   IconMoonFilled,
   IconPlus,
+  IconRefreshAlert,
   IconTrash,
 } from '@tabler/icons-react';
 import { useTodosContext } from '../../providers/TodosProvider';
@@ -40,6 +43,10 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
     confirmDeleteModalOpened,
     { open: openConfirmDeleteModal, close: closeConfirmDeleteModal },
   ] = useDisclosure(false);
+  const [
+    confirmResetModalOpened,
+    { open: openConfirmResetModal, close: closeConfirmResetModal },
+  ] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   const canDeleteTodos = !!todos.length;
@@ -53,6 +60,22 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
 
   const handleDeleteClick = () => {
     openConfirmDeleteModal();
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch({
+      type: 'deleteAllTodos',
+    });
+  };
+
+  const handleResetClick = () => {
+    openConfirmResetModal();
+  };
+
+  const handleConfirmReset = () => {
+    dispatch({
+      type: 'resetApp',
+    });
   };
 
   return (
@@ -113,6 +136,13 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
               >
                 Delete all todos
               </Menu.Item>
+              <Menu.Item
+                color="red"
+                icon={<IconRefreshAlert size={16} />}
+                onClick={handleResetClick}
+              >
+                Reset app
+              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
         </Container>
@@ -121,6 +151,34 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
         opened={confirmDeleteModalOpened}
         closeModal={closeConfirmDeleteModal}
         title="Delete all todos"
+        message="Are you sure you want to delete all todos?"
+        onConfirm={handleConfirmDelete}
+        alert={
+          <Alert
+            icon={<IconAlertTriangleFilled />}
+            title="Warning!"
+            color="red"
+          >
+            All todos will be permanently deleted.
+          </Alert>
+        }
+      />
+      <ConfirmModal
+        opened={confirmResetModalOpened}
+        closeModal={closeConfirmResetModal}
+        title="Reset app"
+        message="Are you sure you want to reset the app?"
+        onConfirm={handleConfirmReset}
+        alert={
+          <Alert
+            icon={<IconAlertTriangleFilled />}
+            title="Warning!"
+            color="red"
+          >
+            All settings will be restored to default values and all todos will
+            be permanently deleted.
+          </Alert>
+        }
       />
     </>
   );
