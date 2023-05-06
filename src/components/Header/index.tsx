@@ -52,31 +52,24 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
   const canDeleteTodos = !!todos.length;
   const allDone = !!todos.length && todos.every((todo) => todo.done);
 
-  const handleFiltersClick = () => {
+  const handleFiltersClick = () =>
     dispatch({
       type: 'toggleFilters',
     });
-  };
 
-  const handleDeleteClick = () => {
-    openConfirmDeleteModal();
-  };
+  const handleDeleteClick = () => openConfirmDeleteModal();
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = () =>
     dispatch({
       type: 'deleteAllTodos',
     });
-  };
 
-  const handleResetClick = () => {
-    openConfirmResetModal();
-  };
+  const handleResetClick = () => openConfirmResetModal();
 
-  const handleConfirmReset = () => {
+  const handleConfirmReset = () =>
     dispatch({
       type: 'resetApp',
     });
-  };
 
   return (
     <>

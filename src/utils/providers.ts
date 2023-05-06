@@ -95,6 +95,14 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         },
       };
     }
+    case 'changeColorScheme': {
+      const { colorScheme } = action.payload;
+
+      return {
+        ...state,
+        colorScheme,
+      };
+    }
     case 'deleteAllTodos': {
       return {
         ...state,
@@ -121,4 +129,5 @@ export const initialState: TypeState = {
     tags: [],
   },
   showFilters: false,
+  colorScheme: 'dark',
 };

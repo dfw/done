@@ -3,20 +3,25 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
-import { useLocalStorage } from '@mantine/hooks';
+import { useTodosContext } from './TodosProvider';
 
 type Props = {
   children: React.ReactNode;
 };
 
 const ThemeProvider: React.FC<Props> = ({ children }) => {
-  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
-    defaultValue: 'dark',
-  });
+  const {
+    state: { colorScheme },
+    dispatch,
+  } = useTodosContext();
 
   const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    dispatch({
+      type: 'changeColorScheme',
+      payload: {
+        colorScheme: value || (colorScheme === 'dark' ? 'light' : 'dark'),
+      },
+    });
 
   return (
     <ColorSchemeProvider

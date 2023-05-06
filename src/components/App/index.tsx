@@ -14,8 +14,8 @@ const App: React.FC = () => {
     useDisclosure(false);
 
   return (
-    <ThemeProvider>
-      <TodosProvider>
+    <TodosProvider>
+      <ThemeProvider>
         <AppShell
           header={<Header openAddModal={openAddModal} />}
           footer={<Footer />}
@@ -24,9 +24,9 @@ const App: React.FC = () => {
           <Todos />
           <TodoModal opened={addModalOpened} closeModal={closeAddModal} />
         </AppShell>
-      </TodosProvider>
-      <Notifications />
-    </ThemeProvider>
+        <Notifications />
+      </ThemeProvider>
+    </TodosProvider>
   );
 };
 

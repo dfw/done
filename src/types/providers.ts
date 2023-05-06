@@ -1,3 +1,4 @@
+import { ColorScheme } from '@mantine/core';
 import {
   TypeTodo,
   EnumTag,
@@ -17,6 +18,7 @@ export type TypeState = {
     tags: EnumTag[];
   };
   showFilters: boolean;
+  colorScheme: ColorScheme;
 };
 
 export type TypeAction =
@@ -60,6 +62,12 @@ export type TypeAction =
       type: 'filterTags';
       payload: {
         tags: EnumTag[];
+      };
+    }
+  | {
+      type: 'changeColorScheme';
+      payload: {
+        colorScheme: ColorScheme;
       };
     }
   | {
