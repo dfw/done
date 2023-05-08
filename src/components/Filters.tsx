@@ -8,19 +8,19 @@ import {
   Text,
 } from '@mantine/core';
 import { IconFilter, IconArrowsSort, IconSearch } from '@tabler/icons-react';
-import { useTodosContext } from '../../providers/TodosProvider';
+import { useTodosContext } from '../providers/TodosProvider';
 import {
   EnumDisplayType,
   EnumSortDirection,
   EnumSortType,
   EnumTag,
-} from '../../types/todos';
+} from '../types/todos';
 import {
   DISPLAY_TYPES,
   SORT_TYPES,
   SORT_DIRECTIONS,
   TAGS,
-} from '../../utils/todos';
+} from '../utils/todos';
 
 const Filters: React.FC = () => {
   const {
@@ -75,7 +75,7 @@ const Filters: React.FC = () => {
   };
 
   return showFilters ? (
-    <Container pb={15}>
+    <Container py={15}>
       <Tabs defaultValue="filters">
         <Tabs.List>
           <Tabs.Tab value="filters" icon={<IconFilter size="0.8rem" />}>

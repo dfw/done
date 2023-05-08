@@ -14,9 +14,9 @@ import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { IconTags, IconCalendarDue } from '@tabler/icons-react';
-import { useTodosContext } from '../../providers/TodosProvider';
-import { TAGS } from '../../utils/todos';
-import { EnumTag } from '../../types/todos';
+import { useTodosContext } from '../providers/TodosProvider';
+import { TAGS } from '../utils/todos';
+import { EnumTag } from '../types/todos';
 
 type Props = {
   opened: boolean;

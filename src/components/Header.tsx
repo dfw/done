@@ -16,16 +16,11 @@ import {
   IconAlertTriangleFilled,
   IconMenu2,
   IconMoonFilled,
-  IconPlus,
   IconRefreshAlert,
   IconTrash,
 } from '@tabler/icons-react';
-import { useTodosContext } from '../../providers/TodosProvider';
-import ConfirmModal from '../ConfirmModal';
-
-type Props = {
-  openAddModal: () => void;
-};
+import { useTodosContext } from '../providers/TodosProvider';
+import ConfirmModal from './ConfirmModal';
 
 const Container = styled(MantineContainer)`
   display: flex;
@@ -34,7 +29,7 @@ const Container = styled(MantineContainer)`
   height: 100%;
 `;
 
-const Header: React.FC<Props> = ({ openAddModal }) => {
+const Header: React.FC = () => {
   const {
     state: { todos, showFilters },
     dispatch,
@@ -81,14 +76,6 @@ const Header: React.FC<Props> = ({ openAddModal }) => {
           >
             Done
           </Title>
-          <ActionIcon
-            onClick={openAddModal}
-            color="blue"
-            variant="filled"
-            sx={{ margin: '0 auto' }}
-          >
-            <IconPlus />
-          </ActionIcon>
           <Menu position="bottom-end" shadow="md" width={200} keepMounted>
             <Menu.Target>
               <ActionIcon>

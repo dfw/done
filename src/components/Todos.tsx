@@ -9,14 +9,14 @@ import {
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { compareAsc, compareDesc, format, parseISO } from 'date-fns';
-import { useTodosContext } from '../../providers/TodosProvider';
+import { useTodosContext } from '../providers/TodosProvider';
 import {
   isAscending,
   isDefaultSort,
   isDefaultFilter,
   TAGS,
-} from '../../utils/todos';
-import { EnumDisplayType, EnumSortType } from '../../types/todos';
+} from '../utils/todos';
+import { EnumDisplayType, EnumSortType } from '../types/todos';
 
 const Checkbox = styled(MantineCheckbox)`
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};

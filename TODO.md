@@ -8,10 +8,6 @@
 
 ### Add adjustments
 
-- Settings
-  - Danger Zone
-    - Reset app
-      - Add modal warning
 - Search
   - Search todo text
 - Sort
