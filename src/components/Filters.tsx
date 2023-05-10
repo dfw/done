@@ -7,7 +7,7 @@ import {
   Tabs,
   Text,
 } from '@mantine/core';
-import { IconFilter, IconArrowsSort, IconSearch } from '@tabler/icons-react';
+import { IconFilter, IconArrowsSort } from '@tabler/icons-react';
 import { useTodosContext } from '../providers/TodosProvider';
 import {
   EnumDisplayType,
@@ -78,14 +78,11 @@ const Filters: React.FC = () => {
     <Container py={15}>
       <Tabs defaultValue="filters">
         <Tabs.List>
-          <Tabs.Tab value="filters" icon={<IconFilter size="0.8rem" />}>
+          <Tabs.Tab value="filters" icon={<IconFilter size={14} />}>
             Filters
           </Tabs.Tab>
-          <Tabs.Tab value="sort" icon={<IconArrowsSort size="0.8rem" />}>
+          <Tabs.Tab value="sort" icon={<IconArrowsSort size={14} />}>
             Sort
-          </Tabs.Tab>
-          <Tabs.Tab value="search" icon={<IconSearch size="0.8rem" />}>
-            Search
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="filters" pt={15}>
@@ -162,9 +159,6 @@ const Filters: React.FC = () => {
               ))}
             </Button.Group>
           </Group>
-        </Tabs.Panel>
-        <Tabs.Panel value="search" pt={15}>
-          This is the search.
         </Tabs.Panel>
       </Tabs>
     </Container>

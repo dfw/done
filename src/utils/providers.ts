@@ -26,6 +26,26 @@ export const reducer = (state: TypeState, action: TypeAction) => {
         ],
       };
     }
+    case 'updateTodo': {
+      const { id, name, tags, dueDate } = action.payload;
+      const nextTodos = state.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            name,
+            tags,
+            dueDate,
+          };
+        }
+
+        return todo;
+      });
+
+      return {
+        ...state,
+        todos: nextTodos,
+      };
+    }
     case 'checkTodo': {
       const { id, done } = action.payload;
       const nextTodos = state.todos.map((todo) => {
@@ -33,12 +53,20 @@ export const reducer = (state: TypeState, action: TypeAction) => {
           return {
             ...todo,
             done,
-            dateUpdated: new Date().toISOString(),
           };
         }
 
         return todo;
       });
+
+      return {
+        ...state,
+        todos: nextTodos,
+      };
+    }
+    case 'deleteTodo': {
+      const { id } = action.payload;
+      const nextTodos = state.todos.filter((todo) => todo.id !== id);
 
       return {
         ...state,
@@ -122,7 +150,7 @@ export const initialState: TypeState = {
   todos: [],
   sort: {
     type: EnumSortType.DateAdded,
-    direction: EnumSortDirection.Descending,
+    direction: EnumSortDirection.Ascending,
   },
   filters: {
     displayType: EnumDisplayType.All,

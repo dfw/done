@@ -9,7 +9,6 @@ export enum EnumTag {
 
 export enum EnumSortType {
   DateAdded = 'date-added',
-  DateUpdated = 'date-updated',
 }
 
 export enum EnumSortDirection {
@@ -29,6 +28,18 @@ export type TypeTodo = {
   done: boolean;
   tags: EnumTag[];
   dateAdded: string;
-  dateUpdated?: string;
   dueDate: string | null;
 };
+
+export type TypeAddTodoPayload = Pick<TypeTodo, 'name' | 'tags' | 'dueDate'>;
+
+export type TypeUpdateTodoPayload = Pick<
+  TypeTodo,
+  'id' | 'name' | 'tags' | 'dueDate'
+>;
+
+export type TypeCheckTodoPayload = Pick<TypeTodo, 'id' | 'done'>;
+
+export type TypeDeleteTodoPayload = Pick<TypeTodo, 'id'>;
+
+export type TypeTodoMode = 'add' | 'view' | 'edit';

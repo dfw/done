@@ -13,7 +13,7 @@ const App: React.FC = () => {
     <TodosProvider>
       <ThemeProvider>
         <AppShell header={<Header />} footer={<Footer />}>
-          <Todo />
+          <Todo initialMode="add" />
           <Filters />
           <Todos />
         </AppShell>

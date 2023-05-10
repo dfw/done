@@ -5,6 +5,10 @@ import {
   EnumSortType,
   EnumSortDirection,
   EnumDisplayType,
+  TypeAddTodoPayload,
+  TypeUpdateTodoPayload,
+  TypeCheckTodoPayload,
+  TypeDeleteTodoPayload,
 } from './todos';
 
 export type TypeState = {
@@ -24,18 +28,19 @@ export type TypeState = {
 export type TypeAction =
   | {
       type: 'addTodo';
-      payload: {
-        name: string;
-        tags: EnumTag[];
-        dueDate: string | null;
-      };
+      payload: TypeAddTodoPayload;
+    }
+  | {
+      type: 'updateTodo';
+      payload: TypeUpdateTodoPayload;
+    }
+  | {
+      type: 'deleteTodo';
+      payload: TypeDeleteTodoPayload;
     }
   | {
       type: 'checkTodo';
-      payload: {
-        id: string;
-        done: boolean;
-      };
+      payload: TypeCheckTodoPayload;
     }
   | {
       type: 'toggleFilters';
