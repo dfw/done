@@ -1,11 +1,6 @@
 # TODO
 
-## Functionality
-
-### Add adjustments
-
-- Sort
-  - Due Date
+## Tests!!!
 
 ## Design
 

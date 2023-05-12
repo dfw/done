@@ -9,6 +9,7 @@ export enum EnumTag {
 
 export enum EnumSortType {
   DateAdded = 'date-added',
+  DueDate = 'due-date',
 }
 
 export enum EnumSortDirection {

@@ -59,6 +59,10 @@ export const SORT_TYPES = Object.freeze({
     label: 'Date Added',
     value: EnumSortType.DateAdded,
   },
+  [EnumSortType.DueDate]: {
+    label: 'Due Date',
+    value: EnumSortType.DueDate,
+  },
 });
 
 export const SORT_DIRECTIONS = Object.freeze({

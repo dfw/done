@@ -39,6 +39,13 @@ const Todos: React.FC = () => {
             : compareDesc(parseISO(a.dateAdded), parseISO(b.dateAdded))
         );
         break;
+      case EnumSortType.DueDate:
+        todos = todos.sort((a, b) =>
+          isAscending(sortDirection)
+            ? compareAsc(parseISO(a.dueDate ?? ''), parseISO(b.dueDate ?? ''))
+            : compareDesc(parseISO(a.dueDate ?? ''), parseISO(b.dueDate ?? ''))
+        );
+        break;
       default:
         break;
     }
