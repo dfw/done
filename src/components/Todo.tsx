@@ -161,11 +161,12 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                   <ActionIcon
                     color="blue"
                     variant={!!form.values.tags.length ? 'filled' : 'light'}
+                    data-testid="tags-button"
                   >
                     <IconTags />
                   </ActionIcon>
                 </Popover.Target>
-                <Popover.Dropdown>
+                <Popover.Dropdown data-testid="tags-popover">
                   <Stack align="center" spacing="xs">
                     <Chip.Group multiple {...form.getInputProps('tags')}>
                       {Object.values(TAGS).map(({ label, value, color }) => (
@@ -193,11 +194,12 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                     color="blue"
                     variant={form.values.dueDate ? 'filled' : 'light'}
                     onClick={toggleCalendarPopover}
+                    data-testid="calendar-button"
                   >
                     <IconCalendarDue size={20} />
                   </ActionIcon>
                 </Popover.Target>
-                <Popover.Dropdown>
+                <Popover.Dropdown data-testid="calendar-popover">
                   <DatePicker
                     firstDayOfWeek={0}
                     weekdayFormat="ddd"
