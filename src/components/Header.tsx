@@ -130,8 +130,8 @@ const Header: React.FC = () => {
       <ConfirmModal
         opened={confirmDeleteModalOpened}
         closeModal={closeConfirmDeleteModal}
-        title="Delete all todos"
-        message="Are you sure you want to delete all todos?"
+        title="Delete all to-dos"
+        message="Are you sure you want to delete all to-dos?"
         onConfirm={handleConfirmDelete}
         alert={
           <Alert
@@ -139,7 +139,7 @@ const Header: React.FC = () => {
             title="Warning!"
             color="red"
           >
-            All todos will be permanently deleted.
+            All to-dos will be permanently deleted.
           </Alert>
         }
       />
@@ -155,7 +155,7 @@ const Header: React.FC = () => {
             title="Warning!"
             color="red"
           >
-            All settings will be restored to default values and all todos will
+            All settings will be restored to default values and all to-dos will
             be permanently deleted.
           </Alert>
         }

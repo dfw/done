@@ -1,6 +1,6 @@
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 
-type Props = {
+export type Props = {
   opened: boolean;
   closeModal: () => void;
   title: string;
