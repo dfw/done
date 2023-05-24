@@ -17,7 +17,7 @@ describe('src/components/Todo', () => {
   test('Renders view mode', () => {
     renderWithProviders(<Todo todo={mockTodo} />);
 
-    const label = screen.getByText('Eat pizza');
+    const label = screen.getByText(/eat pizza/i);
 
     expect(label).toBeInTheDocument();
   });

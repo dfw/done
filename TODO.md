@@ -2,13 +2,9 @@
 
 ## Tests!!!
 
-- Filters
 - Todo
 - App
 - Todos
-- ConfirmModal - Done!
-- Footer - Done!
-- Header - Done!
 
 ## Design
 

@@ -25,7 +25,7 @@ describe('src/components/ConfirmModal', () => {
       <ModalWrapper title="My Modal Title" message="This is my message!" />
     );
 
-    const message = screen.getByText('This is my message!');
+    const message = screen.getByText(/this is my message/i);
 
     expect(message).toBeInTheDocument();
   });

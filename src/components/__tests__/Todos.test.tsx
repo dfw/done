@@ -6,7 +6,7 @@ describe('src/components/Todos', () => {
   test('message displays if no to-dos', () => {
     renderWithProviders(<Todos />);
 
-    const text = screen.getByText('No to-dos!');
+    const text = screen.getByText(/no to-dos/i);
 
     expect(text).toBeInTheDocument();
   });

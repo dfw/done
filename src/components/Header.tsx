@@ -76,9 +76,9 @@ const Header: React.FC = () => {
           >
             Done
           </Title>
-          <Menu position="bottom-end" shadow="md" width={200}>
+          <Menu position="bottom-end" shadow="md" width={200} keepMounted>
             <Menu.Target>
-              <ActionIcon>
+              <ActionIcon data-testid="app-menu-button">
                 <IconMenu2 />
               </ActionIcon>
             </Menu.Target>

@@ -27,14 +27,16 @@ describe('src/components/App', () => {
 
     await user.click(toggleFiltersButton);
 
-    const filtersComponent = screen.getByTestId('filters-component');
+    const filters = screen.getByRole('tablist');
 
-    expect(filtersComponent).toBeInTheDocument();
+    expect(filters).toBeInTheDocument();
 
-    // await user.click(toggleFiltersButton);
+    await user.click(menuButton);
 
-    // expect(filtersComponent).not.toBeInTheDocument();
-  });
+    await user.click(toggleFiltersButton);
+
+    expect(filters).not.toBeInTheDocument();
+  }, 8000);
 
   // Filter tests
 
