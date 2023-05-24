@@ -138,7 +138,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
       };
     }
     case 'resetApp': {
-      return { ...initialState };
+      return { ...defaultState };
     }
     default: {
       return { ...state };
@@ -146,7 +146,7 @@ export const reducer = (state: TypeState, action: TypeAction) => {
   }
 };
 
-export const initialState: TypeState = {
+export const defaultState: TypeState = {
   todos: [],
   sort: {
     type: EnumSortType.DateAdded,

@@ -1,13 +1,14 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { TypeContext, TypeState } from '../types/providers';
-import { reducer, initialState } from '../utils/providers';
+import { reducer, defaultState } from '../utils/providers';
 
 type Props = {
   children: React.ReactNode;
+  initialState?: TypeState;
 };
 
 const init = (initialState: TypeState) => {
-  const stateFromStorage = localStorage.getItem('app-state');
+  const stateFromStorage = window.localStorage.getItem('app-state');
 
   if (stateFromStorage) {
     return JSON.parse(stateFromStorage) as TypeState;
@@ -18,11 +19,14 @@ const init = (initialState: TypeState) => {
 
 const TodosContext = createContext<TypeContext>(null);
 
-const TodosProvider: React.FC<Props> = ({ children }) => {
+const TodosProvider: React.FC<Props> = ({
+  children,
+  initialState = defaultState,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState, init);
 
   useEffect(() => {
-    localStorage.setItem('app-state', JSON.stringify(state));
+    window.localStorage.setItem('app-state', JSON.stringify(state));
   }, [state]);
 
   return (

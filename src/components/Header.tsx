@@ -76,7 +76,7 @@ const Header: React.FC = () => {
           >
             Done
           </Title>
-          <Menu position="bottom-end" shadow="md" width={200} keepMounted>
+          <Menu position="bottom-end" shadow="md" width={200}>
             <Menu.Target>
               <ActionIcon>
                 <IconMenu2 />
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                 onClick={handleDeleteClick}
                 disabled={!canDeleteTodos}
               >
-                Delete all todos
+                Delete all to-dos
               </Menu.Item>
               <Menu.Item
                 color="red"

@@ -1,10 +1,14 @@
 import { render } from '@testing-library/react';
-import TodosProvider from '../providers/TodosProvider';
 import ThemeProvider from '../providers/ThemeProvider';
+import TodosProvider from '../providers/TodosProvider';
+import { TypeState } from '../types/providers';
 
-export const renderWithProviders = (component: React.ReactNode) =>
+export const renderWithProviders = (
+  ui: React.ReactElement,
+  todosProviderProps?: TypeState
+) =>
   render(
-    <TodosProvider>
-      <ThemeProvider>{component}</ThemeProvider>
+    <TodosProvider initialState={todosProviderProps}>
+      <ThemeProvider>{ui}</ThemeProvider>
     </TodosProvider>
   );

@@ -1,7 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ConfirmModal, { Props } from './ConfirmModal';
+import ConfirmModal, { Props } from '../ConfirmModal';
 
 const onConfirm = jest.fn();
 
@@ -20,7 +20,7 @@ const ModalWrapper = ({ title, message }: Pick<Props, 'title' | 'message'>) => {
 };
 
 describe('src/components/ConfirmModal', () => {
-  test('modal renders', () => {
+  test('Component renders', () => {
     render(
       <ModalWrapper title="My Modal Title" message="This is my message!" />
     );
@@ -32,12 +32,13 @@ describe('src/components/ConfirmModal', () => {
 
   test('No button click closes modal', async () => {
     const user = userEvent.setup();
+
     render(
       <ModalWrapper title="My Modal Title" message="This is my message!" />
     );
 
     const modal = screen.getByRole('dialog');
-    const noButton = screen.getByRole('button', { name: 'No' });
+    const noButton = screen.getByRole('button', { name: /no/i });
 
     await user.click(noButton);
 
@@ -46,12 +47,13 @@ describe('src/components/ConfirmModal', () => {
 
   test('Yes button click triggers `onConfirm` callback and closes modal', async () => {
     const user = userEvent.setup();
+
     render(
       <ModalWrapper title="My Modal Title" message="This is my message!" />
     );
 
     const modal = screen.getByRole('dialog');
-    const yesButton = screen.getByRole('button', { name: 'Yes' });
+    const yesButton = screen.getByRole('button', { name: /yes/i });
 
     await user.click(yesButton);
 

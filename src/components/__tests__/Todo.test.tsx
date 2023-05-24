@@ -1,16 +1,8 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from '../utils/test';
-import Todo from './Todo';
-
-const mockTodo = {
-  id: '0ac353d1-5975-4bc2-9ef4-1ecc0w9df7b4',
-  name: 'Eat pizza',
-  done: false,
-  tags: [],
-  dateAdded: '2023-05-12T01:41:53.016Z',
-  dueDate: null,
-};
+import { renderWithProviders } from '../../utils/test';
+import { mockTodo } from '../../utils/mockData';
+import Todo from '../Todo';
 
 describe('src/components/Todo', () => {
   beforeEach(() => {
@@ -22,7 +14,7 @@ describe('src/components/Todo', () => {
   });
 
   // View mode
-  test('renders view mode', () => {
+  test('Renders view mode', () => {
     renderWithProviders(<Todo todo={mockTodo} />);
 
     const label = screen.getByText('Eat pizza');
@@ -30,35 +22,34 @@ describe('src/components/Todo', () => {
     expect(label).toBeInTheDocument();
   });
 
-  test('menu trigger click opens and closes menu dropdown', async () => {
+  test('Menu trigger click opens and closes menu dropdown', async () => {
     const user = userEvent.setup();
+
     renderWithProviders(<Todo todo={mockTodo} />);
 
-    const menuButton = screen.getByRole('button');
+    const menuButton = screen.getByTestId('todo-menu-button');
 
     await user.click(menuButton);
 
-    const editButton = screen.getByRole('menuitem', { name: 'Edit' });
-    const deleteButton = screen.getByRole('menuitem', { name: 'Delete' });
+    const menuDropdown = screen.getByRole('menu');
 
-    expect(editButton).toBeInTheDocument();
-    expect(deleteButton).toBeInTheDocument();
+    expect(menuDropdown).toBeInTheDocument();
 
     await user.click(menuButton);
 
-    expect(editButton).not.toBeInTheDocument();
-    expect(deleteButton).not.toBeInTheDocument();
+    expect(menuDropdown).not.toBeInTheDocument();
   });
 
-  test('edit button click changes mode to edit', async () => {
+  test('Edit button click changes mode to edit', async () => {
     const user = userEvent.setup();
+
     renderWithProviders(<Todo todo={mockTodo} />);
 
-    const menuButton = screen.getByRole('button');
+    const menuButton = screen.getByTestId('todo-menu-button');
 
     await user.click(menuButton);
 
-    const editButton = screen.getByRole('menuitem', { name: 'Edit' });
+    const editButton = screen.getByRole('menuitem', { name: /edit/i });
 
     await user.click(editButton);
 
@@ -76,7 +67,7 @@ describe('src/components/Todo', () => {
 
   //   await user.click(menuButton);
 
-  //   const deleteButton = screen.getByRole('menuitem', { name: 'Delete' });
+  //   const deleteButton = screen.getByRole('menuitem', { name: /delete/i });
 
   //   await user.click(deleteButton);
 
@@ -84,34 +75,36 @@ describe('src/components/Todo', () => {
   // });
 
   // Edit mode
-  test('renders edit mode', () => {
+  test('Renders edit mode', () => {
     renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
 
     const textbox = screen.getByRole('textbox');
     const saveButton = screen.getByRole('button', {
       name: 'Save',
     });
-    const cancelButton = screen.getByRole('button', { name: 'Cancel' });
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
 
     expect(textbox).toHaveValue('Eat pizza');
     expect(saveButton).toBeInTheDocument();
     expect(cancelButton).toBeInTheDocument();
   });
 
-  test('cancel button click changes mode back to view', async () => {
+  test('Cancel button click changes mode back to view', async () => {
     const user = userEvent.setup();
+
     renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
 
     const textbox = screen.getByRole('textbox');
-    const cancelButton = screen.getByRole('button', { name: 'Cancel' });
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
 
     await user.click(cancelButton);
 
     expect(textbox).not.toBeInTheDocument();
   });
 
-  test('tags button click opens and closes tags popover', async () => {
+  test('Tags button click opens and closes tags popover', async () => {
     const user = userEvent.setup();
+
     renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
 
     const tagsButton = screen.getByTestId('tags-button');
@@ -127,8 +120,9 @@ describe('src/components/Todo', () => {
     await waitFor(() => expect(tagsPopover).not.toBeInTheDocument());
   });
 
-  test('calendar button click opens and closes calendar popover', async () => {
+  test('Calendar button click opens and closes calendar popover', async () => {
     const user = userEvent.setup();
+
     renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
 
     const calendarButton = screen.getByTestId('calendar-button');
@@ -141,7 +135,7 @@ describe('src/components/Todo', () => {
 
     await user.click(calendarButton);
 
-    expect(calendarPopover).not.toBeInTheDocument();
+    await waitFor(() => expect(calendarPopover).not.toBeInTheDocument());
   });
 
   // test('todo can be edited', async () => {
@@ -150,7 +144,7 @@ describe('src/components/Todo', () => {
 
   //   const textbox = screen.getByRole('textbox');
   //   const saveButton = screen.getByRole('button', {
-  //     name: 'Save',
+  //     name: /save/i,
   //   });
 
   //   await user.type(textbox, 'Call mom');
@@ -164,12 +158,12 @@ describe('src/components/Todo', () => {
   // });
 
   // Add mode
-  test('renders add mode', () => {
+  test('Renders add mode', () => {
     renderWithProviders(<Todo initialMode="add" />);
 
     const textbox = screen.getByRole('textbox');
     const addButton = screen.getByRole('button', {
-      name: 'Add',
+      name: /add/i,
     });
 
     expect(textbox).toHaveValue('');

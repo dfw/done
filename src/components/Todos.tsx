@@ -54,7 +54,7 @@ const Todos: React.FC = () => {
   if (!todos.length) {
     return (
       <Container mt={30}>
-        <Text>No todos!</Text>
+        <Text>No to-dos!</Text>
       </Container>
     );
   }
