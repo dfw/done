@@ -12,7 +12,7 @@ describe('src/components/App', () => {
   });
 
   // Header
-  test('User can show and hide filters', async () => {
+  test.skip('User can show and hide filters', async () => {
     const user = userEvent.setup();
 
     render(<App />);

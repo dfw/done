@@ -81,7 +81,7 @@ export const isDefaultSort = (
   sortDirection: EnumSortDirection
 ) =>
   sortType === EnumSortType.DateAdded &&
-  sortDirection === EnumSortDirection.Ascending;
+  sortDirection === EnumSortDirection.Descending;
 
 export const isAscending = (sortDirection: EnumSortDirection) =>
   sortDirection === EnumSortDirection.Ascending;

@@ -16,7 +16,7 @@ describe('src/components/Header', () => {
     window.localStorage.clear();
   });
 
-  test('Component renders', async () => {
+  test('Component renders', () => {
     renderWithProviders(<Header />);
 
     const h1 = screen.getByRole('heading', { name: /done/i });
@@ -35,11 +35,11 @@ describe('src/components/Header', () => {
 
     const menuDropdown = screen.getByRole('menu');
 
-    expect(menuDropdown).toBeInTheDocument();
+    expect(menuDropdown).toBeVisible();
 
     await user.click(menuButton);
 
-    expect(menuDropdown).not.toBeInTheDocument();
+    expect(menuDropdown).not.toBeVisible();
   });
 
   test('User can toggle dark mode', async () => {

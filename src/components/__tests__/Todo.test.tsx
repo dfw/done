@@ -27,7 +27,7 @@ describe('src/components/Todo', () => {
 
     renderWithProviders(<Todo todo={mockTodo} />);
 
-    const menuButton = screen.getByTestId('todo-menu-button');
+    const menuButton = screen.getByRole('button');
 
     await user.click(menuButton);
 
@@ -45,7 +45,7 @@ describe('src/components/Todo', () => {
 
     renderWithProviders(<Todo todo={mockTodo} />);
 
-    const menuButton = screen.getByTestId('todo-menu-button');
+    const menuButton = screen.getByRole('button');
 
     await user.click(menuButton);
 
@@ -58,35 +58,35 @@ describe('src/components/Todo', () => {
     expect(textbox).toBeInTheDocument();
   });
 
-  // test('delete button click deletes todo', async () => {
-  //   const user = userEvent.setup();
-  //   renderWithProviders(<Todo todo={mockTodo} />);
-
-  //   const label = screen.getByText('Eat pizza');
-  //   const menuButton = screen.getByRole('button');
-
-  //   await user.click(menuButton);
-
-  //   const deleteButton = screen.getByRole('menuitem', { name: /delete/i });
-
-  //   await user.click(deleteButton);
-
-  //   expect(label).not.toBeInTheDocument();
-  // });
-
   // Edit mode
   test('Renders edit mode', () => {
     renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
 
     const textbox = screen.getByRole('textbox');
     const saveButton = screen.getByRole('button', {
-      name: 'Save',
+      name: /save/i,
     });
     const cancelButton = screen.getByRole('button', { name: /cancel/i });
 
-    expect(textbox).toHaveValue('Eat pizza');
+    expect(textbox).toHaveDisplayValue(/eat pizza/i);
     expect(saveButton).toBeInTheDocument();
     expect(cancelButton).toBeInTheDocument();
+  });
+
+  test('Save button is disabled when there is no to-do name', async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<Todo todo={mockTodo} initialMode="edit" />);
+
+    const textbox = screen.getByRole('textbox');
+    const saveButton = screen.getByRole('button', {
+      name: /save/i,
+    });
+
+    await user.clear(textbox);
+
+    expect(textbox).toHaveDisplayValue('');
+    expect(saveButton).toBeDisabled();
   });
 
   test('Cancel button click changes mode back to view', async () => {
@@ -100,6 +100,35 @@ describe('src/components/Todo', () => {
     await user.click(cancelButton);
 
     expect(textbox).not.toBeInTheDocument();
+  });
+
+  // Add mode
+  test('Renders add mode', () => {
+    renderWithProviders(<Todo initialMode="add" />);
+
+    const textbox = screen.getByRole('textbox');
+    const addButton = screen.getByRole('button', {
+      name: /add/i,
+    });
+
+    expect(textbox).toHaveDisplayValue('');
+    expect(addButton).toBeInTheDocument();
+    expect(addButton).toBeDisabled();
+  });
+
+  test('Add button is enabled when there is a to-do name', async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<Todo initialMode="add" />);
+
+    const textbox = screen.getByRole('textbox');
+    const addButton = screen.getByRole('button', {
+      name: /add/i,
+    });
+
+    await user.type(textbox, 'Watch Mad Men');
+
+    expect(addButton).toBeEnabled();
   });
 
   test('Tags button click opens and closes tags popover', async () => {
@@ -136,37 +165,5 @@ describe('src/components/Todo', () => {
     await user.click(calendarButton);
 
     await waitFor(() => expect(calendarPopover).not.toBeInTheDocument());
-  });
-
-  // test('todo can be edited', async () => {
-  //   const user = userEvent.setup();
-  //   renderWithProviders(<Todo initialMode="edit" todo={mockTodo} />);
-
-  //   const textbox = screen.getByRole('textbox');
-  //   const saveButton = screen.getByRole('button', {
-  //     name: /save/i,
-  //   });
-
-  //   await user.type(textbox, 'Call mom');
-
-  //   await user.click(saveButton);
-
-  //   await waitFor(() => {
-  //     const label = screen.getByText('Call mom');
-  //     expect(label).not.toBeInTheDocument();
-  //   });
-  // });
-
-  // Add mode
-  test('Renders add mode', () => {
-    renderWithProviders(<Todo initialMode="add" />);
-
-    const textbox = screen.getByRole('textbox');
-    const addButton = screen.getByRole('button', {
-      name: /add/i,
-    });
-
-    expect(textbox).toHaveValue('');
-    expect(addButton).toBeInTheDocument();
   });
 });

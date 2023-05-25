@@ -172,7 +172,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
           ))}
           <Menu position="bottom-end" shadow="md">
             <Menu.Target>
-              <ActionIcon size="sm" data-testid="todo-menu-button">
+              <ActionIcon size="sm">
                 <IconDots size={20} />
               </ActionIcon>
             </Menu.Target>

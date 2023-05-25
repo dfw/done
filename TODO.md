@@ -2,7 +2,6 @@
 
 ## Tests!!!
 
-- Todo
 - App
 - Todos
 

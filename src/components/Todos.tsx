@@ -16,6 +16,9 @@ const Todos: React.FC = () => {
 
   let todos = [...defaultTodos];
 
+  // Reverse order so new to-dos are first
+  todos = todos.reverse();
+
   if (!isDefaultFilter(displayTypeFilter)) {
     const done = displayTypeFilter === EnumDisplayType.Done;
 

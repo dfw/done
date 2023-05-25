@@ -150,7 +150,7 @@ export const defaultState: TypeState = {
   todos: [],
   sort: {
     type: EnumSortType.DateAdded,
-    direction: EnumSortDirection.Ascending,
+    direction: EnumSortDirection.Descending,
   },
   filters: {
     displayType: EnumDisplayType.All,
