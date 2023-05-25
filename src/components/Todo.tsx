@@ -39,10 +39,15 @@ type FormValues = {
   dueDate: Date | null;
 };
 
-type Props = {
-  initialMode?: TypeTodoMode;
-  todo?: TypeTodo;
-};
+type Props =
+  | {
+      initialMode?: Extract<TypeTodoMode, 'add'>;
+      todo?: TypeTodo;
+    }
+  | {
+      initialMode?: Exclude<TypeTodoMode, 'add'>;
+      todo: TypeTodo;
+    };
 
 const Checkbox = styled(MantineCheckbox)`
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
@@ -91,6 +96,8 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
           dueDate: dueDate ? dueDate.toISOString() : null,
         },
       });
+
+      form.reset();
     } else {
       dispatch({
         type: 'updateTodo',
@@ -104,8 +111,6 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
 
       viewTodo();
     }
-
-    form.reset();
   };
 
   const handleCheckTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,139 +149,139 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
     closeCalendarPopover();
   };
 
-  if (mode !== 'view') {
+  if (mode === 'view' && todo) {
     return (
-      <Container w="100%" px={isAddMode ? '1rem' : '0'}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Stack spacing="xs">
-            <TextInput
-              placeholder="What do you need to do?"
-              size="md"
-              ref={focusTrapRef}
-              {...form.getInputProps('name')}
-            />
-            <Group spacing="xs">
-              <Popover position="bottom-start" shadow="md">
-                <Popover.Target>
-                  <ActionIcon
-                    color="blue"
-                    variant={!!form.values.tags.length ? 'filled' : 'light'}
-                    data-testid="tags-button"
-                  >
-                    <IconTags />
-                  </ActionIcon>
-                </Popover.Target>
-                <Popover.Dropdown data-testid="tags-popover">
-                  <Stack align="center" spacing="xs">
-                    <Chip.Group multiple {...form.getInputProps('tags')}>
-                      {Object.values(TAGS).map(({ label, value, color }) => (
-                        <Chip
-                          value={value}
-                          variant="filled"
-                          color={color}
-                          key={value}
-                        >
-                          {label}
-                        </Chip>
-                      ))}
-                    </Chip.Group>
-                  </Stack>
-                </Popover.Dropdown>
-              </Popover>
-              <Popover
-                opened={calendarPopoverOpened}
-                onChange={closeCalendarPopover}
-                position="bottom-start"
-                shadow="md"
+      <Group spacing="xs" position="apart">
+        <Checkbox
+          checked={todo.done}
+          label={todo.name}
+          name={todo.id}
+          onChange={handleCheckTodo}
+          size="md"
+        />
+        <Group spacing="xs">
+          {todo?.dueDate ? (
+            <Badge size="sm" color="gray">
+              {format(new Date(todo.dueDate), 'MMM d')}
+            </Badge>
+          ) : null}
+          {todo?.tags.map((tag) => (
+            <Badge variant="filled" size="sm" color={TAGS[tag].color} key={tag}>
+              {tag}
+            </Badge>
+          ))}
+          <Menu position="bottom-end" shadow="md">
+            <Menu.Target>
+              <ActionIcon size="sm" data-testid="todo-menu-button">
+                <IconDots size={20} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item onClick={editTodo} icon={<IconEdit size={14} />}>
+                Edit
+              </Menu.Item>
+              <Menu.Divider />
+              <Menu.Item
+                onClick={handleDeleteTodo}
+                color="red"
+                icon={<IconTrash size={14} />}
               >
-                <Popover.Target>
-                  <ActionIcon
-                    color="blue"
-                    variant={form.values.dueDate ? 'filled' : 'light'}
-                    onClick={toggleCalendarPopover}
-                    data-testid="calendar-button"
-                  >
-                    <IconCalendarDue size={20} />
-                  </ActionIcon>
-                </Popover.Target>
-                <Popover.Dropdown data-testid="calendar-popover">
-                  <DatePicker
-                    firstDayOfWeek={0}
-                    weekdayFormat="ddd"
-                    allowDeselect
-                    {...form.getInputProps('dueDate')}
-                    onChange={handleDatePickerChange}
-                  />
-                </Popover.Dropdown>
-              </Popover>
-              {isAddMode ? (
-                <Button
-                  type="submit"
-                  ml="auto"
-                  size="xs"
-                  disabled={!form.values.name}
-                >
-                  Add
-                </Button>
-              ) : (
-                <Group spacing="xs" ml="auto">
-                  <Button type="submit" size="xs">
-                    Save
-                  </Button>
-                  <Button size="xs" color="gray" onClick={viewTodo}>
-                    Cancel
-                  </Button>
-                </Group>
-              )}
-            </Group>
-          </Stack>
-        </form>
-      </Container>
+                Delete
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </Group>
+      </Group>
     );
   }
 
   return (
-    <Group spacing="xs" position="apart">
-      <Checkbox
-        checked={todo?.done}
-        label={todo?.name}
-        name={todo?.id}
-        onChange={handleCheckTodo}
-        size="md"
-      />
-      <Group spacing="xs">
-        {todo?.dueDate ? (
-          <Badge size="sm" color="gray">
-            {format(new Date(todo.dueDate), 'MMM d')}
-          </Badge>
-        ) : null}
-        {todo?.tags.map((tag) => (
-          <Badge variant="filled" size="sm" color={TAGS[tag].color} key={tag}>
-            {tag}
-          </Badge>
-        ))}
-        <Menu position="bottom-end" shadow="md">
-          <Menu.Target>
-            <ActionIcon size="sm" data-testid="todo-menu-button">
-              <IconDots size={20} />
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item onClick={editTodo} icon={<IconEdit size={14} />}>
-              Edit
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item
-              onClick={handleDeleteTodo}
-              color="red"
-              icon={<IconTrash size={14} />}
+    <Container w="100%" px={isAddMode ? '1rem' : '0'}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack spacing="xs">
+          <TextInput
+            placeholder="What do you need to do?"
+            size="md"
+            ref={focusTrapRef}
+            {...form.getInputProps('name')}
+          />
+          <Group spacing="xs">
+            <Popover position="bottom-start" shadow="md">
+              <Popover.Target>
+                <ActionIcon
+                  color="blue"
+                  variant={!!form.values.tags.length ? 'filled' : 'light'}
+                  data-testid="tags-button"
+                >
+                  <IconTags />
+                </ActionIcon>
+              </Popover.Target>
+              <Popover.Dropdown data-testid="tags-popover">
+                <Stack align="center" spacing="xs">
+                  <Chip.Group multiple {...form.getInputProps('tags')}>
+                    {Object.values(TAGS).map(({ label, value, color }) => (
+                      <Chip
+                        value={value}
+                        variant="filled"
+                        color={color}
+                        key={value}
+                      >
+                        {label}
+                      </Chip>
+                    ))}
+                  </Chip.Group>
+                </Stack>
+              </Popover.Dropdown>
+            </Popover>
+            <Popover
+              opened={calendarPopoverOpened}
+              onChange={closeCalendarPopover}
+              position="bottom-start"
+              shadow="md"
             >
-              Delete
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
-      </Group>
-    </Group>
+              <Popover.Target>
+                <ActionIcon
+                  color="blue"
+                  variant={form.values.dueDate ? 'filled' : 'light'}
+                  onClick={toggleCalendarPopover}
+                  data-testid="calendar-button"
+                >
+                  <IconCalendarDue size={20} />
+                </ActionIcon>
+              </Popover.Target>
+              <Popover.Dropdown data-testid="calendar-popover">
+                <DatePicker
+                  firstDayOfWeek={0}
+                  weekdayFormat="ddd"
+                  allowDeselect
+                  {...form.getInputProps('dueDate')}
+                  onChange={handleDatePickerChange}
+                />
+              </Popover.Dropdown>
+            </Popover>
+            {isAddMode ? (
+              <Button
+                type="submit"
+                ml="auto"
+                size="xs"
+                disabled={!form.values.name}
+              >
+                Add
+              </Button>
+            ) : (
+              <Group spacing="xs" ml="auto">
+                <Button type="submit" size="xs" disabled={!form.values.name}>
+                  Save
+                </Button>
+                <Button size="xs" color="gray" onClick={viewTodo}>
+                  Cancel
+                </Button>
+              </Group>
+            )}
+          </Group>
+        </Stack>
+      </form>
+    </Container>
   );
 };
 
