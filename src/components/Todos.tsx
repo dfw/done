@@ -1,9 +1,14 @@
 import { Container, Divider, Stack, Text } from '@mantine/core';
-import { compareAsc, compareDesc, parseISO } from 'date-fns';
+import { orderBy } from 'lodash';
 import { useTodosContext } from '../providers/TodosProvider';
-import { isAscending, isDefaultSort, isDefaultFilter } from '../utils/todos';
-import { EnumDisplayType, EnumSortType } from '../types/todos';
+import {
+  isDefaultSort,
+  filterTodos,
+  sortTodos,
+  isDefaultFilter,
+} from '../utils/todos';
 import Todo from './Todo';
+import { EnumSortDirection, EnumSortType } from '../types/todos';
 
 const Todos: React.FC = () => {
   const {
@@ -14,44 +19,21 @@ const Todos: React.FC = () => {
     },
   } = useTodosContext();
 
-  let todos = [...defaultTodos];
+  // Default sort
+  let todos = orderBy(
+    defaultTodos,
+    EnumSortType.DateAdded,
+    EnumSortDirection.Descending
+  );
 
-  // Reverse order so new to-dos are first
-  todos = todos.reverse();
-
-  if (!isDefaultFilter(displayTypeFilter)) {
-    const done = displayTypeFilter === EnumDisplayType.Done;
-
-    todos = todos.filter((todo) => {
-      return todo.done === done;
-    });
+  // Apply filters
+  if (!isDefaultFilter(displayTypeFilter) || !!tagsFilter.length) {
+    todos = filterTodos(todos, displayTypeFilter, tagsFilter);
   }
 
-  if (!!tagsFilter.length) {
-    todos = todos.filter(({ tags }) => {
-      return tags.some((tag) => tagsFilter.includes(tag));
-    });
-  }
-
+  // Apply custom sort
   if (!isDefaultSort(sortType, sortDirection)) {
-    switch (sortType) {
-      case EnumSortType.DateAdded:
-        todos = todos.sort((a, b) =>
-          isAscending(sortDirection)
-            ? compareAsc(parseISO(a.dateAdded), parseISO(b.dateAdded))
-            : compareDesc(parseISO(a.dateAdded), parseISO(b.dateAdded))
-        );
-        break;
-      case EnumSortType.DueDate:
-        todos = todos.sort((a, b) =>
-          isAscending(sortDirection)
-            ? compareAsc(parseISO(a.dueDate ?? ''), parseISO(b.dueDate ?? ''))
-            : compareDesc(parseISO(a.dueDate ?? ''), parseISO(b.dueDate ?? ''))
-        );
-        break;
-      default:
-        break;
-    }
+    todos = sortTodos(todos, sortType, sortDirection);
   }
 
   if (!todos.length) {

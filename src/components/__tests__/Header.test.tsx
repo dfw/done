@@ -2,8 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../utils/test';
 import Header from '../Header';
-import { mockTodo } from '../../utils/mockData';
-import { defaultState } from '../../utils/providers';
+import { mockStateTodo } from '../../utils/mockData';
 
 describe('src/components/Header', () => {
   beforeEach(() => {
@@ -83,12 +82,7 @@ describe('src/components/Header', () => {
   test('Delete button is enabled when there are to-dos', async () => {
     const user = userEvent.setup();
 
-    const todoProviderProps = {
-      ...defaultState,
-      todos: [mockTodo],
-    };
-
-    renderWithProviders(<Header />, todoProviderProps);
+    renderWithProviders(<Header />, mockStateTodo);
 
     const menuButton = screen.getByRole('button');
 

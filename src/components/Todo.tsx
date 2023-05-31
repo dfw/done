@@ -151,7 +151,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
 
   if (mode === 'view' && todo) {
     return (
-      <Group spacing="xs" position="apart">
+      <Group spacing="xs" position="apart" data-testid="todo">
         <Checkbox
           checked={todo.done}
           label={todo.name}

@@ -1,9 +1,11 @@
 import { IconSortAscending, IconSortDescending } from '@tabler/icons-react';
+import { orderBy } from 'lodash';
 import {
   EnumDisplayType,
   EnumSortDirection,
   EnumSortType,
   EnumTag,
+  TypeTodo,
 } from '../types/todos';
 
 export const TAGS = Object.freeze({
@@ -88,3 +90,39 @@ export const isAscending = (sortDirection: EnumSortDirection) =>
 
 export const isDefaultFilter = (displayType: EnumDisplayType) =>
   displayType === EnumDisplayType.All;
+
+export const filterTodos = (
+  todos: TypeTodo[],
+  displayTypeFilter: EnumDisplayType,
+  tagsFilter: EnumTag[]
+) => {
+  const displayDone = displayTypeFilter === EnumDisplayType.Done;
+
+  return todos.filter(({ done, tags }) => {
+    const filterByDisplayType = isDefaultFilter(displayTypeFilter)
+      ? true
+      : done === displayDone;
+    const filterByTags = !tagsFilter.length
+      ? true
+      : tags.some((tag) => tagsFilter.includes(tag));
+
+    return filterByDisplayType && filterByTags;
+  });
+};
+
+export const sortTodos = (
+  todos: TypeTodo[],
+  sortType: EnumSortType,
+  sortDirection: EnumSortDirection
+) => {
+  switch (sortType) {
+    case EnumSortType.DateAdded:
+      return orderBy(todos, sortType, sortDirection);
+    case EnumSortType.DueDate:
+      return sortDirection === EnumSortDirection.Descending
+        ? orderBy(todos, (t) => t.dueDate || '', sortDirection)
+        : orderBy(todos, sortType, sortDirection);
+    default:
+      throw new Error('Invalid sort type');
+  }
+};
