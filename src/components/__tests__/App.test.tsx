@@ -11,36 +11,22 @@ describe('src/components/App', () => {
     }));
   });
 
-  // Header
-  test.skip('User can show and hide filters', async () => {
+  test('User can add to-do', async () => {
     const user = userEvent.setup();
 
     render(<App />);
 
-    const menuButton = screen.getByTestId('app-menu-button');
-
-    await user.click(menuButton);
-
-    const toggleFiltersButton = screen.getByRole('menuitem', {
-      name: /show filters/i,
+    const textbox = screen.getByRole('textbox');
+    const addButton = screen.getByRole('button', {
+      name: /add/i,
     });
 
-    await user.click(toggleFiltersButton);
+    await user.type(textbox, 'Clean the kitchen');
 
-    const filters = screen.getByRole('tablist');
+    await user.click(addButton);
 
-    expect(filters).toBeInTheDocument();
+    const label = screen.getByLabelText(/clean the kitchen/i);
 
-    await user.click(menuButton);
-
-    await user.click(toggleFiltersButton);
-
-    expect(filters).not.toBeInTheDocument();
-  }, 8000);
-
-  // Filter tests
-
-  // Header tests
-
-  // Todo tests
+    expect(label).toBeInTheDocument();
+  });
 });
