@@ -75,7 +75,7 @@ const Filters: React.FC = () => {
   };
 
   return showFilters ? (
-    <Container py={15} data-testid="filters-component">
+    <Container py={15}>
       <Tabs defaultValue="filters">
         <Tabs.List>
           <Tabs.Tab value="filters" icon={<IconFilter size={14} />}>

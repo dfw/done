@@ -78,7 +78,7 @@ const Header: React.FC = () => {
           </Title>
           <Menu position="bottom-end" shadow="md" width={200} keepMounted>
             <Menu.Target>
-              <ActionIcon data-testid="app-menu-button">
+              <ActionIcon>
                 <IconMenu2 />
               </ActionIcon>
             </Menu.Target>

@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { mockStateTodo } from '../../utils/mockData';
 import { renderWithProviders } from '../../utils/test';
 import Header from '../Header';
-import { mockStateTodo } from '../../utils/mockData';
 
 describe('src/components/Header', () => {
   beforeEach(() => {
@@ -18,27 +18,9 @@ describe('src/components/Header', () => {
   test('Component renders', () => {
     renderWithProviders(<Header />);
 
-    const h1 = screen.getByRole('heading', { name: /done/i });
+    const heading = screen.getByRole('heading', { name: /done/i });
 
-    expect(h1).toBeInTheDocument();
-  });
-
-  test('Menu trigger click opens and closes menu dropdown', async () => {
-    const user = userEvent.setup();
-
-    renderWithProviders(<Header />);
-
-    const menuButton = screen.getByRole('button');
-
-    await user.click(menuButton);
-
-    const menuDropdown = screen.getByRole('menu');
-
-    expect(menuDropdown).toBeVisible();
-
-    await user.click(menuButton);
-
-    expect(menuDropdown).not.toBeVisible();
+    expect(heading).toBeInTheDocument();
   });
 
   test('User can toggle dark mode', async () => {

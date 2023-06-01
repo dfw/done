@@ -151,7 +151,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
 
   if (mode === 'view' && todo) {
     return (
-      <Group spacing="xs" position="apart" data-testid="todo">
+      <Group spacing="xs" position="apart" data-testid="todo-group">
         <Checkbox
           checked={todo.done}
           label={todo.name}
@@ -197,7 +197,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
 
   return (
     <Container w="100%" px={isAddMode ? '1rem' : '0'}>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={form.onSubmit(handleSubmit)} data-testid="todo-form">
         <Stack spacing="xs">
           <TextInput
             placeholder="What do you need to do?"
@@ -211,12 +211,11 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                 <ActionIcon
                   color="blue"
                   variant={!!form.values.tags.length ? 'filled' : 'light'}
-                  data-testid="tags-button"
                 >
                   <IconTags />
                 </ActionIcon>
               </Popover.Target>
-              <Popover.Dropdown data-testid="tags-popover">
+              <Popover.Dropdown>
                 <Stack align="center" spacing="xs">
                   <Chip.Group multiple {...form.getInputProps('tags')}>
                     {Object.values(TAGS).map(({ label, value, color }) => (
@@ -244,12 +243,11 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                   color="blue"
                   variant={form.values.dueDate ? 'filled' : 'light'}
                   onClick={toggleCalendarPopover}
-                  data-testid="calendar-button"
                 >
                   <IconCalendarDue size={20} />
                 </ActionIcon>
               </Popover.Target>
-              <Popover.Dropdown data-testid="calendar-popover">
+              <Popover.Dropdown>
                 <DatePicker
                   firstDayOfWeek={0}
                   weekdayFormat="ddd"

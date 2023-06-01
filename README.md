@@ -1,46 +1,24 @@
-# Getting Started with Create React App
+# Done
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Done is a simple yet mighty to-do app for the web. You don’t need an account to use it and your data never leaves the browser. It is perfect for quickly adding to-dos on your smartphone. It is free to use, now and forever. Check off your to-dos and be more productive with Done!
 
-## Available Scripts
+## Author
 
-In the project directory, you can run:
+Done was created by David Weiss. David has worked in software engineering for more than 15 years as both an individual contributor and a manager. He enjoys building web apps with React and TypeScript with an emphasis on UX. David can be contacted [here](mailto:me@davidfweiss.com).
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tech Specs
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Done was built using the following technologies:
 
-### `yarn test`
+- React
+- TypeScript
+- Create React App
+- Mantine
+- Emotion
+- React Testing Library
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## License
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Done is copyrighted software by David Weiss under the MIT License.

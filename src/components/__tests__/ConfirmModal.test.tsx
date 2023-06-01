@@ -30,7 +30,7 @@ describe('src/components/ConfirmModal', () => {
     expect(message).toBeInTheDocument();
   });
 
-  test('No button click closes modal', async () => {
+  test('`No` button click closes modal', async () => {
     const user = userEvent.setup();
 
     render(
@@ -38,14 +38,14 @@ describe('src/components/ConfirmModal', () => {
     );
 
     const modal = screen.getByRole('dialog');
-    const noButton = screen.getByRole('button', { name: /no/i });
+    const button = screen.getByRole('button', { name: /no/i });
 
-    await user.click(noButton);
+    await user.click(button);
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
   });
 
-  test('Yes button click triggers `onConfirm` callback and closes modal', async () => {
+  test('`Yes` button click triggers `onConfirm` callback and closes modal', async () => {
     const user = userEvent.setup();
 
     render(
@@ -53,9 +53,9 @@ describe('src/components/ConfirmModal', () => {
     );
 
     const modal = screen.getByRole('dialog');
-    const yesButton = screen.getByRole('button', { name: /yes/i });
+    const button = screen.getByRole('button', { name: /yes/i });
 
-    await user.click(yesButton);
+    await user.click(button);
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     expect(onConfirm).toHaveBeenCalled();

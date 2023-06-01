@@ -5,8 +5,8 @@ describe('src/components/Footer', () => {
   test('Component renders', () => {
     render(<Footer />);
 
-    const footerText = screen.getByText(/David Weiss/);
+    const text = screen.getByText(/david weiss/i);
 
-    expect(footerText).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
   });
 });

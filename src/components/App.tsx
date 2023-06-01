@@ -7,10 +7,15 @@ import Footer from './Footer';
 import Todos from './Todos';
 import Filters from './Filters';
 import Todo from './Todo';
+import { TypeState } from '../types/providers';
 
-const App: React.FC = () => {
+type Props = {
+  initialState?: TypeState;
+};
+
+const App: React.FC<Props> = ({ initialState }) => {
   return (
-    <TodosProvider>
+    <TodosProvider initialState={initialState}>
       <ThemeProvider>
         <AppShell header={<Header />} footer={<Footer />}>
           <Todo initialMode="add" />
