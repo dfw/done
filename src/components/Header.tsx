@@ -9,8 +9,9 @@ import {
   Switch,
   Title,
   useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import {
   IconAdjustmentsHorizontal,
   IconAlertTriangleFilled,
@@ -43,6 +44,8 @@ const Header: React.FC = () => {
     { open: openConfirmResetModal, close: closeConfirmResetModal },
   ] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
+  const isLargeViewport = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
   const canDeleteTodos = !!todos.length;
   const allDone = !!todos.length && todos.every((todo) => todo.done);
@@ -68,18 +71,19 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <MantineHeader height={{ base: 50, sm: 60, md: 70, lg: 80 }}>
+      <MantineHeader height={{ base: 60, sm: 70, md: 80, lg: 100 }}>
         <Container>
           <Title
             order={1}
             sx={{ textDecoration: allDone ? 'line-through' : 'none' }}
+            fz={{ base: 24, sm: 30, md: 34, lg: 40 }}
           >
             Done
           </Title>
           <Menu position="bottom-end" shadow="md" width={200} keepMounted>
             <Menu.Target>
-              <ActionIcon>
-                <IconMenu2 />
+              <ActionIcon size={isLargeViewport ? 'xl' : 'lg'}>
+                <IconMenu2 size={isLargeViewport ? 36 : 30} />
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
