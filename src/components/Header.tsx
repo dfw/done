@@ -9,9 +9,8 @@ import {
   Switch,
   Title,
   useMantineColorScheme,
-  useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import {
   IconAdjustmentsHorizontal,
   IconAlertTriangleFilled,
@@ -34,6 +33,7 @@ const Header: React.FC = () => {
   const {
     state: { todos, showFilters },
     dispatch,
+    mq: { lg: isLargeViewport },
   } = useTodosContext();
   const [
     confirmDeleteModalOpened,
@@ -44,8 +44,6 @@ const Header: React.FC = () => {
     { open: openConfirmResetModal, close: closeConfirmResetModal },
   ] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
-  const isLargeViewport = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
   const canDeleteTodos = !!todos.length;
   const allDone = !!todos.length && todos.every((todo) => todo.done);

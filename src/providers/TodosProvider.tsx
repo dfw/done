@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
+import { useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { TypeContext, TypeState } from '../types/providers';
 import { reducer, defaultState } from '../utils/providers';
 
@@ -24,13 +26,25 @@ const TodosProvider: React.FC<Props> = ({
   initialState = defaultState,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState, init);
+  const theme = useMantineTheme();
+  const mqLg = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
+  const mqXl = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
 
   useEffect(() => {
     window.localStorage.setItem('app-state', JSON.stringify(state));
   }, [state]);
 
   return (
-    <TodosContext.Provider value={{ state, dispatch }}>
+    <TodosContext.Provider
+      value={{
+        state,
+        dispatch,
+        mq: {
+          lg: mqLg,
+          xl: mqXl,
+        },
+      }}
+    >
       {children}
     </TodosContext.Provider>
   );

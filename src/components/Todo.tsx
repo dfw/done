@@ -64,7 +64,10 @@ const DatePicker = styled(MantineDatePicker)`
 `;
 
 const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
-  const { dispatch } = useTodosContext();
+  const {
+    dispatch,
+    mq: { xl: isExtraLargeViewport },
+  } = useTodosContext();
   const focusTrapRef = useFocusTrap(true);
   const [
     calendarPopoverOpened,
@@ -157,22 +160,27 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
           label={todo.name}
           name={todo.id}
           onChange={handleCheckTodo}
-          size="md"
+          size={isExtraLargeViewport ? 'lg' : 'md'}
         />
-        <Group spacing="xs">
-          {todo?.dueDate ? (
-            <Badge size="sm" color="gray">
+        <Group spacing="xs" ml={{ base: 36, sm: 0 }}>
+          {todo.dueDate ? (
+            <Badge size={isExtraLargeViewport ? 'md' : 'sm'} color="gray">
               {format(new Date(todo.dueDate), 'MMM d')}
             </Badge>
           ) : null}
-          {todo?.tags.map((tag) => (
-            <Badge variant="filled" size="sm" color={TAGS[tag].color} key={tag}>
+          {todo.tags.map((tag) => (
+            <Badge
+              variant="filled"
+              size={isExtraLargeViewport ? 'md' : 'sm'}
+              color={TAGS[tag].color}
+              key={tag}
+            >
               {tag}
             </Badge>
           ))}
           <Menu position="bottom-end" shadow="md">
             <Menu.Target>
-              <ActionIcon size="sm">
+              <ActionIcon size={isExtraLargeViewport ? 'md' : 'sm'}>
                 <IconDots size={20} />
               </ActionIcon>
             </Menu.Target>
@@ -197,11 +205,17 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
 
   return (
     <Container w="100%" px={isAddMode ? '1rem' : '0'}>
-      <form onSubmit={form.onSubmit(handleSubmit)} data-testid="todo-form">
+      <form
+        onSubmit={form.onSubmit(handleSubmit)}
+        data-testid="todo-form"
+        style={{
+          marginTop: isAddMode && isExtraLargeViewport ? '1rem' : 0,
+        }}
+      >
         <Stack spacing="xs">
           <TextInput
             placeholder="What do you need to do?"
-            size="md"
+            size={isExtraLargeViewport ? 'lg' : 'md'}
             ref={focusTrapRef}
             {...form.getInputProps('name')}
           />
@@ -211,6 +225,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                 <ActionIcon
                   color="blue"
                   variant={!!form.values.tags.length ? 'filled' : 'light'}
+                  size={isExtraLargeViewport ? 'lg' : 'md'}
                 >
                   <IconTags />
                 </ActionIcon>
@@ -242,6 +257,7 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
                 <ActionIcon
                   color="blue"
                   variant={form.values.dueDate ? 'filled' : 'light'}
+                  size={isExtraLargeViewport ? 'lg' : 'md'}
                   onClick={toggleCalendarPopover}
                 >
                   <IconCalendarDue size={20} />
@@ -261,17 +277,25 @@ const Todo: React.FC<Props> = ({ initialMode = 'view', todo }) => {
               <Button
                 type="submit"
                 ml="auto"
-                size="xs"
+                size={isExtraLargeViewport ? 'sm' : 'xs'}
                 disabled={!form.values.name}
               >
                 Add
               </Button>
             ) : (
               <Group spacing="xs" ml="auto">
-                <Button type="submit" size="xs" disabled={!form.values.name}>
+                <Button
+                  type="submit"
+                  size={isExtraLargeViewport ? 'sm' : 'xs'}
+                  disabled={!form.values.name}
+                >
                   Save
                 </Button>
-                <Button size="xs" color="gray" onClick={viewTodo}>
+                <Button
+                  size={isExtraLargeViewport ? 'sm' : 'xs'}
+                  color="gray"
+                  onClick={viewTodo}
+                >
                   Cancel
                 </Button>
               </Group>

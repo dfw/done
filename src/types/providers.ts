@@ -1,4 +1,4 @@
-import { ColorScheme } from '@mantine/core';
+import { ColorScheme, MantineSize } from '@mantine/core';
 import {
   TypeTodo,
   EnumTag,
@@ -85,4 +85,5 @@ export type TypeAction =
 export type TypeContext = {
   state: TypeState;
   dispatch: React.Dispatch<TypeAction>;
+  mq: Partial<Record<MantineSize, boolean>>;
 } | null;

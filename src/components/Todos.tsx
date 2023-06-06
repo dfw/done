@@ -17,6 +17,7 @@ const Todos: React.FC = () => {
       sort: { type: sortType, direction: sortDirection },
       filters: { displayType: displayTypeFilter, tags: tagsFilter },
     },
+    mq: { xl: isExtraLargeViewport },
   } = useTodosContext();
 
   // Default sort
@@ -45,9 +46,9 @@ const Todos: React.FC = () => {
   }
 
   return (
-    <Container mt={15}>
-      <Divider mb={15} size="sm" />
-      <Stack spacing="sm" align="stretch">
+    <Container mt={isExtraLargeViewport ? 30 : 15}>
+      <Divider mb={isExtraLargeViewport ? 30 : 15} size="sm" />
+      <Stack spacing={isExtraLargeViewport ? 'md' : 'sm'}>
         {todos.map((todo) => (
           <Todo todo={todo} key={todo.id} />
         ))}

@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   return (
     <MantineFooter height={{ base: 50, sm: 60, md: 70, lg: 80 }}>
       <Container>
-        <Text fz={{ base: 14, sm: 16, lg: 18 }}>&copy; {year} David Weiss</Text>
+        <Text fz={{ base: 14, lg: 16 }}>&copy; {year} David Weiss</Text>
       </Container>
     </MantineFooter>
   );

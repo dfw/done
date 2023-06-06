@@ -30,6 +30,7 @@ const Filters: React.FC = () => {
       showFilters,
     },
     dispatch,
+    mq: { xl: isExtraLargeViewport },
   } = useTodosContext();
 
   const handleDisplayFilterClick = (type: EnumDisplayType) => {
@@ -88,7 +89,7 @@ const Filters: React.FC = () => {
         <Tabs.Panel value="filters" pt={15}>
           <Stack>
             <Group spacing="xs">
-              <Text fz="sm" fw={700}>
+              <Text fz={isExtraLargeViewport ? 'md' : 'sm'} fw={700}>
                 Display type:
               </Text>
               <Button.Group>
@@ -97,7 +98,7 @@ const Filters: React.FC = () => {
                     variant={displayTypeFilter === value ? 'filled' : 'light'}
                     onClick={() => handleDisplayFilterClick(value)}
                     key={value}
-                    size="xs"
+                    size={isExtraLargeViewport ? 'sm' : 'xs'}
                   >
                     {label}
                   </Button>
@@ -105,7 +106,7 @@ const Filters: React.FC = () => {
               </Button.Group>
             </Group>
             <Group spacing="xs">
-              <Text fz="sm" fw={700}>
+              <Text fz={isExtraLargeViewport ? 'md' : 'sm'} fw={700}>
                 Tags:
               </Text>
               <Group spacing="xs" position="center">
@@ -120,6 +121,7 @@ const Filters: React.FC = () => {
                       variant="filled"
                       color={color}
                       key={value}
+                      size={isExtraLargeViewport ? 'md' : 'sm'}
                     >
                       {label}
                     </Chip>
@@ -131,7 +133,7 @@ const Filters: React.FC = () => {
         </Tabs.Panel>
         <Tabs.Panel value="sort" pt={15}>
           <Group spacing="xs">
-            <Text fz="sm" fw={700}>
+            <Text fz={isExtraLargeViewport ? 'md' : 'sm'} fw={700}>
               Sort by:
             </Text>
             <Button.Group>
@@ -140,7 +142,7 @@ const Filters: React.FC = () => {
                   variant={sortType === value ? 'filled' : 'light'}
                   onClick={() => handleSortTypeClick(value)}
                   key={value}
-                  size="xs"
+                  size={isExtraLargeViewport ? 'sm' : 'xs'}
                 >
                   {label}
                 </Button>
@@ -152,7 +154,7 @@ const Filters: React.FC = () => {
                   variant={sortDirection === value ? 'filled' : 'light'}
                   onClick={() => handleSortDirectionClick(value)}
                   key={value}
-                  size="xs"
+                  size={isExtraLargeViewport ? 'sm' : 'xs'}
                 >
                   <Icon />
                 </Button>
